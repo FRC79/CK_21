@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team79.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -66,6 +67,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		//Lets the robot know which platform for the switches and scale is ours.
+		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage();
+		if(fmsMessage.charAt(0)=='L') {
+			//Auto for first switch placement on left
+		}else {
+			//Auto for first switch placement on right
+		}
+		
 		autonomousCommand = chooser.getSelected();
 
 		/*
