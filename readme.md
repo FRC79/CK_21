@@ -14,7 +14,7 @@ The 21st year of Krunch. For the game FIRST Power Up.
 ## How to make and upload changes
 Note: Be sure to fetch regularly to receive updates and avoid conflicts. See step 8, but click fetch instead.
 
-1. Create a new branch (if you aren't already working and one; **do not edit in master**) by opening the Git Perspective and selecting CK_21>Branches>Local.
+1. Create a new branch (if you aren't already working and one; **DO NOT MAKE CHANGES IN MASTER!**) by opening the Git Perspective and selecting CK_21>Branches>Local.
 2. Right click on Local and select Switch To>New Branch...
 3. Select master as the source and rename it to whatever you'll be working on (e.g. cube-manipulator)
 4. Switch to Java Perspective and do whatever to the code.
