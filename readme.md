@@ -11,9 +11,16 @@ The 21st year of Krunch. For the game FIRST Power Up.
 7. Finish
 8. In the Java perspective, CK_21 will be where all the code is located.
 
-## How to make and upload changes
-Note: Be sure to fetch regularly to receive updates and avoid conflicts. See step 8, but click fetch instead.
+## How to grab updates
+**It's important to do this often to make sure you are up to date and prevent conflicts.**
+1. Open the Git Perspective.
+2. Select CK_21>Remotes and right click on origin and select Fetch.
+3. If it prompts that you did in fact receive something new continue. Otherwise, you're up to date.
+4. Go to CK_21>Branches>Local and change to the branch that had changes (double click).
+5. Under Remote Tracking, right click on the same branch and select merge.
+6. If there are conflicts, see the software lead to help resolve those.
 
+## How to make and upload changes
 1. Create a new branch (if you aren't already working and one; **DO NOT MAKE CHANGES IN MASTER!**) by opening the Git Perspective and selecting CK_21>Branches>Local.
 2. Right click on Local and select Switch To>New Branch...
 3. Select master as the source and rename it to whatever you'll be working on (e.g. cube-manipulator)
