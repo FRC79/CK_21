@@ -1,9 +1,11 @@
 package org.usfirst.frc.team79.robot.subsystems;
 
 import org.usfirst.frc.team79.robot.RobotMap;
-import org.usfirst.frc.team79.robot.commands.MecanumDrive;
+import org.usfirst.frc.team79.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team79.robot.util.ArcadeUtil;
 import org.usfirst.frc.team79.robot.util.MecanumUtil;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,18 +21,26 @@ public class DriveTrain extends Subsystem {
 	 * Used for mecanum driving. Called in MecanumDrive command.
 	 */
 	public MecanumUtil mecDrive;
+	/** Used for arcade driving. Calling in ArcadeDrive command*/
+	public ArcadeUtil arcadeDrive;
 	
 	public DriveTrain() {
 		frontLeft = new TalonSRX(RobotMap.frontLeftTalon);
 		frontRight = new TalonSRX(RobotMap.frontRightTalon);
 		backLeft = new TalonSRX(RobotMap.backLeftTalon);
 		backRight = new TalonSRX(RobotMap.backRightTalon);
-		mecDrive = new MecanumUtil(frontLeft, backLeft, frontRight, backRight);
+		
+		backLeft.set(ControlMode.Follower, RobotMap.frontLeftTalon);
+		backRight.set(ControlMode.Follower, RobotMap.frontRightTalon);
+		
+		frontRight.setInverted(true);
+		
+		arcadeDrive = new ArcadeUtil(frontLeft, frontRight);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new MecanumDrive());
+		this.setDefaultCommand(new ArcadeDrive());
 	}
 
 }
