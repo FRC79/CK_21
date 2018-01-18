@@ -9,6 +9,8 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
 
+import edu.wpi.cscore.AxisCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +29,9 @@ public class Robot extends TimedRobot {
 
 	public static OI oi;
 	public static DriveTrain driveTrain;
+	
+	public static CameraServer camServer;
+	public static AxisCamera camera;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -39,7 +44,10 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+		camServer = CameraServer.getInstance();
+		camera = camServer.addAxisCamera("10.0.79.3");
+		
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
@@ -81,14 +89,6 @@ public class Robot extends TimedRobot {
 		
 		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
@@ -104,10 +104,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
