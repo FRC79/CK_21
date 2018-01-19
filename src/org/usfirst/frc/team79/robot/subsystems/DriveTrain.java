@@ -37,6 +37,14 @@ public class DriveTrain extends Subsystem {
 		
 		arcadeDrive = new ArcadeUtil(frontLeft, frontRight);
 	}
+	
+	public int getRightPos() {
+		return frontRight.getSensorCollection().getQuadraturePosition();
+	}
+	
+	public int getLeftPos() {
+		return frontLeft.getSensorCollection().getQuadraturePosition();
+	}
 
 	@Override
 	protected void initDefaultCommand() {
