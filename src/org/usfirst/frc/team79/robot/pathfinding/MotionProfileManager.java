@@ -13,14 +13,14 @@ import jaci.pathfinder.Trajectory.FitMethod;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
-public class GenerateMotionProfile {
+public class MotionProfileManager {
 	
-	public static Config config = new Config(FitMethod.HERMITE_CUBIC, Config.SAMPLES_FAST, 0.05, 1.2, 2, 60);
+	public static Config config = new Config(FitMethod.HERMITE_CUBIC, Config.SAMPLES_LOW, 0.05, 1.2, 2, 60);
 	public static Trajectory leftPath, rightPath;
 	
-	public static void generate(Waypoint... points) {
-		File pathFileLeft = new File("/home/lvuser/trajectoryLeft.csv");
-		File pathFileRight = new File("/home/lvuser/trajectoryRight.csv");
+	public static void generate(String autoName, Waypoint... points) {
+		File pathFileLeft = new File("/home/lvuser/motionPaths/" + autoName + "Left.csv");
+		File pathFileRight = new File("/home/lvuser/motionPaths/" + autoName + "Right.csv");
 		try {
 			pathFileLeft.createNewFile();
 			pathFileRight.createNewFile();
@@ -34,6 +34,16 @@ public class GenerateMotionProfile {
 		rightPath = tank.getRightTrajectory();
 		Pathfinder.writeToCSV(pathFileLeft, leftPath);
 		Pathfinder.writeToCSV(pathFileRight, rightPath);
+	}
+	
+	/**
+	 * Loads the saved motion paths into the leftPath and rightPath fields.
+	 */
+	public static void load(String autoName) {
+		File pathFileLeft = new File("/home/lvuser/motionPaths/"+ autoName + "Left.csv");
+		File pathFileRight = new File("/home/lvuser/motionPaths/" + autoName + "Right.csv");
+		leftPath = Pathfinder.readFromCSV(pathFileLeft);
+		rightPath = Pathfinder.readFromCSV(pathFileRight);
 	}
 
 }
