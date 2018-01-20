@@ -49,6 +49,8 @@ public class Robot extends TimedRobot {
 		camera = camServer.addAxisCamera("10.0.79.3");
 		
 		SmartDashboard.putData("Auto mode", chooser);
+		System.out.println("~~~Robot initialization complete!~~~");
+		System.out.println("Run Test to generate the motion profile for autonomous.");
 	}
 
 	/**
@@ -115,6 +117,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+	}
+	
+	@Override
+	public void testInit() {
+		//Will put in all the autos as such when the time comes
+//		MotionProfileManager.generate(autoName, points);
 	}
 
 	/**
