@@ -51,4 +51,9 @@ public class DriveTrain extends Subsystem {
 		this.setDefaultCommand(new ArcadeDrive());
 	}
 
+	public void stopMotors() {
+		frontLeft.set(ControlMode.PercentOutput, 0);
+		frontRight.set(ControlMode.PercentOutput, 0);
+	}
+
 }
