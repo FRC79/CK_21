@@ -5,7 +5,11 @@ package org.usfirst.frc.team79.robot;
  */
 public class RobotDimensions {
 	
-	/**Inches*/
-	public static final int WHEEL_WIDTH = 2;
+	/**The width of the drive train wheels inches*/
+	public static final double WHEEL_WIDTH = 2;
+	/**The diameter of the drive train wheels in inches*/
+	public static final double WHEEL_DIAMETER = 12;
+	/**The circumference of the wheel in feet*/
+	public static final double WHEEL_CIRCUMFERENCE = Math.PI*(WHEEL_DIAMETER/12d);
 
 }
