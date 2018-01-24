@@ -8,6 +8,10 @@ import org.usfirst.frc.team79.robot.util.MecanumUtil;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,6 +21,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 	
 	public TalonSRX frontLeft, frontRight, backLeft, backRight;
+	
+	public ADXRS450_Gyro gyro;
+	
 	/**
 	 * Used for mecanum driving. Called in MecanumDrive command.
 	 */
@@ -33,9 +40,9 @@ public class DriveTrain extends Subsystem {
 		backLeft.set(ControlMode.Follower, RobotMap.frontLeftTalon);
 		backRight.set(ControlMode.Follower, RobotMap.frontRightTalon);
 		
-		frontRight.setInverted(true);
-		
 		arcadeDrive = new ArcadeUtil(frontLeft, frontRight);
+		
+		gyro = new ADXRS450_Gyro();
 	}
 
 	@Override
