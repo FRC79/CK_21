@@ -17,4 +17,6 @@ public class OI {
 	
 	public Joystick drive = new Joystick(0);
 	
+	public Joystick operator = new Joystick(1);
+	
 }
