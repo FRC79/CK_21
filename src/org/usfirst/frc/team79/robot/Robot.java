@@ -9,6 +9,7 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team79.robot.subsystems.Elevator;
+import org.usfirst.frc.team79.robot.subsystems.Intake;
 
 import edu.wpi.cscore.AxisCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Elevator elevator;
+	public static Intake intake;
 	
 	public static CameraServer camServer;
 	public static AxisCamera camera;
@@ -47,6 +49,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		elevator = new Elevator();
+		intake = new Intake();
 		
 		camServer = CameraServer.getInstance();
 		camera = camServer.addAxisCamera("10.0.79.3");

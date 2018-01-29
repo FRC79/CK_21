@@ -21,5 +21,7 @@ public class RobotMap {
 	public static int backRightTalon = 3;
 	public static int leftElevatorTalon = 4;
 	public static int rightElevatorTalon = 5;
+	public static int leftIntakeTalon = 6;
+	public static int rightIntakeTalon = 7;
 	
 }
