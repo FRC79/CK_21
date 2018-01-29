@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.subsystems.Climber;
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team79.robot.subsystems.Elevator;
 import org.usfirst.frc.team79.robot.subsystems.Intake;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static DriveTrain driveTrain;
 	public static Elevator elevator;
 	public static Intake intake;
+	public static Climber climber;
 	
 	public static CameraServer camServer;
 	public static AxisCamera camera;
@@ -50,6 +52,7 @@ public class Robot extends TimedRobot {
 		driveTrain = new DriveTrain();
 		elevator = new Elevator();
 		intake = new Intake();
+		climber = new Climber();
 		
 		camServer = CameraServer.getInstance();
 		camera = camServer.addAxisCamera("10.0.79.3");

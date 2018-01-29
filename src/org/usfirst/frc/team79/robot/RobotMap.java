@@ -23,5 +23,7 @@ public class RobotMap {
 	public static int rightElevatorTalon = 5;
 	public static int leftIntakeTalon = 6;
 	public static int rightIntakeTalon = 7;
-	
+	public static int climberTalon1 = 8;
+	public static int climberTalon2 = 9;
+	public static int climberTalon3 = 10;
 }
