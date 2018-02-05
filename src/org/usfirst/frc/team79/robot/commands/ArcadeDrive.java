@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ArcadeDrive extends Command {
 	
 	public ArcadeDrive() {
-		
+		requires(Robot.driveTrain);
 	}
 	
 	@Override
@@ -17,7 +17,7 @@ public class ArcadeDrive extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.arcadeDrive.arcadeDrive(Robot.oi.drive.getX(), Robot.oi.drive.getY());
+		Robot.driveTrain.arcadeDrive.arcadeDrive(-Robot.oi.drive.getY(), Robot.oi.drive.getZ(), true);
 	}
 
 	@Override

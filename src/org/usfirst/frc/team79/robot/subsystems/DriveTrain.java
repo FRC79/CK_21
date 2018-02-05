@@ -33,8 +33,6 @@ public class DriveTrain extends Subsystem {
 		backLeft.set(ControlMode.Follower, RobotMap.frontLeftTalon);
 		backRight.set(ControlMode.Follower, RobotMap.frontRightTalon);
 		
-		frontRight.setInverted(true);
-		
 		arcadeDrive = new ArcadeUtil(frontLeft, frontRight);
 	}
 	

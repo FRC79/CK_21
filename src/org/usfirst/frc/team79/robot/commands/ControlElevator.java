@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ControlElevator extends Command {
 
 	public ControlElevator() {
-		
+		requires(Robot.elevator);
 	}
 	
 	@Override

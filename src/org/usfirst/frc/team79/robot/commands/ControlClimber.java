@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ControlClimber extends Command {
 	
+	public ControlClimber() {
+		requires(Robot.climber);
+	}
+	
 	@Override
 	protected void execute() {
 		double value = Robot.oi.operator.getY();
