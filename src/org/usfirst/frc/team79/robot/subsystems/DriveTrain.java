@@ -44,10 +44,23 @@ public class DriveTrain extends Subsystem {
 		
 		gyro = new ADXRS450_Gyro();
 	}
+	
+	public int getRightPos() {
+		return frontRight.getSensorCollection().getQuadraturePosition();
+	}
+	
+	public int getLeftPos() {
+		return frontLeft.getSensorCollection().getQuadraturePosition();
+	}
 
 	@Override
 	protected void initDefaultCommand() {
 		this.setDefaultCommand(new ArcadeDrive());
+	}
+
+	public void stopMotors() {
+		frontLeft.set(ControlMode.PercentOutput, 0);
+		frontRight.set(ControlMode.PercentOutput, 0);
 	}
 
 }

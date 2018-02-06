@@ -15,9 +15,15 @@ package org.usfirst.frc.team79.robot;
  */
 public class RobotMap {
 	
-	public static int frontLeftTalon = 0;
-	public static int frontRightTalon = 1;
-	public static int backLeftTalon = 2;
-	public static int backRightTalon = 3;
-	
+	public static int frontLeftTalon = 1;
+	public static int frontRightTalon = 2;
+	public static int backLeftTalon = 3;
+	public static int backRightTalon = 4;
+	public static int leftElevatorTalon = 5;
+	public static int rightElevatorTalon = 6;
+	public static int leftIntakeTalon = 7;
+	public static int rightIntakeTalon = 8;
+	public static int climberTalon1 = 9;
+	public static int climberTalon2 = 10;
+	public static int climberTalon3 = 11;
 }

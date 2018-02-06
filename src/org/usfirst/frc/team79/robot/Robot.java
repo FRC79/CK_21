@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.subsystems.Climber;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +16,8 @@ import java.util.Properties;
 
 import org.usfirst.frc.team79.robot.pid.GyroPIDController;
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team79.robot.subsystems.Elevator;
+import org.usfirst.frc.team79.robot.subsystems.Intake;
 
 import edu.wpi.cscore.AxisCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -36,6 +39,9 @@ public class Robot extends TimedRobot {
 
 	public static OI oi;
 	public static DriveTrain driveTrain;
+	public static Elevator elevator;
+	public static Intake intake;
+	public static Climber climber;
 	
 	public static GyroPIDController gyroPID;
 	
@@ -52,6 +58,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		driveTrain = new DriveTrain();
+		elevator = new Elevator();
+		intake = new Intake();
+		climber = new Climber();
 
 		File pidFile = new File("/home/lvuser/pid/gyro.properties");
 		Properties pidProp = new Properties();
@@ -66,12 +75,15 @@ public class Robot extends TimedRobot {
 			System.out.println("Some idiot saved something that wasn't a number... Setting all PID to 0.");
 			gyroPID = new GyroPIDController(0, 0, 0);
 		}
+    
 		oi = new OI();
 		
 		camServer = CameraServer.getInstance();
 		camera = camServer.addAxisCamera("10.0.79.3");
 		
 		SmartDashboard.putData("Auto mode", chooser);
+		System.out.println("~~~Robot initialization complete!~~~");
+		System.out.println("Run Test to generate the motion profile for autonomous.");
 		SmartDashboard.putData(driveTrain.gyro);
 		SmartDashboard.putData(gyroPID);
 	}
@@ -140,6 +152,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+	}
+	
+	@Override
+	public void testInit() {
+		//Will put in all the autos as such when the time comes
+//		MotionProfileManager.generate(autoName, points);
 	}
 
 	/**
