@@ -8,12 +8,15 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LowerElevator extends Command {
 
-	public LowerElevator() {
-		
+	public boolean middle;
+	
+	public LowerElevator(boolean middle) {
+		this.middle = middle;
 	}
 	
 	@Override
 	protected void initialize() {
+		Robot.elevator.middleCounter.reset();
 		Robot.elevator.bottomCounter.reset();
 	}
 	
@@ -24,12 +27,13 @@ public class LowerElevator extends Command {
 	
 	@Override
 	protected void end() {
+		Robot.elevator.middleCounter.reset();
 		Robot.elevator.bottomCounter.reset();
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.elevator.bottomCounter.get() > 0;
+		return Robot.elevator.bottomCounter.get() > 0 || (middle && Robot.elevator.middleCounter.get()>0);
 	}
 
 }
