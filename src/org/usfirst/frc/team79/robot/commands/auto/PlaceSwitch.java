@@ -18,7 +18,7 @@ public class PlaceSwitch extends CommandGroup{
 	 * @param side A single character representing which switch is ours
 	 */
 	public PlaceSwitch(String wall, char side) {
-		this.addParallel(new LiftElevator());
+		this.addParallel(new LiftElevator(true));
 		this.addSequential(new RunMotionProfile(wall+"WallSwitch"+side));
 		this.addSequential(new WaitCommand(0.5));
 		this.addSequential(new IntakeOut(2));
