@@ -1,11 +1,9 @@
 package org.usfirst.frc.team79.robot.pathfinding;
 
 import java.io.File;
-import java.io.IOException;import org.opencv.utils.Converters;
+import java.io.IOException;
 import org.usfirst.frc.team79.robot.RobotDimensions;
-import org.usfirst.frc.team79.robot.util.Conversions;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Trajectory.Config;

@@ -3,7 +3,6 @@ package org.usfirst.frc.team79.robot.commands.auto;
 import org.usfirst.frc.team79.robot.Robot;
 import org.usfirst.frc.team79.robot.RobotDimensions;
 import org.usfirst.frc.team79.robot.pathfinding.MotionProfileManager;
-import org.usfirst.frc.team79.robot.util.Conversions;
 
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motion.TrajectoryPoint;
