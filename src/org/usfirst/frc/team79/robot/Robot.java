@@ -8,13 +8,14 @@
 package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.Climber;
-
+import org.usfirst.frc.team79.robot.commands.auto.RunMotionProfile;
+import org.usfirst.frc.team79.robot.pathfinding.MotionProfileManager;
 import org.usfirst.frc.team79.robot.pid.GyroPIDController;
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team79.robot.subsystems.Elevator;
 import org.usfirst.frc.team79.robot.subsystems.Intake;
 
-import edu.wpi.cscore.AxisCamera;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Waypoint;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,10 +43,9 @@ public class Robot extends TimedRobot {
 	public static GyroPIDController gyroPID;
 	
 	public static CameraServer camServer;
-	public static AxisCamera camera;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	Command autoCommand;
+	SendableChooser<String> chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -60,14 +61,18 @@ public class Robot extends TimedRobot {
 		gyroPID = new GyroPIDController();
 		oi = new OI();
 		
+		UsbCamera cam = new UsbCamera("cam0", 0);
+		cam.setBrightness(70);
 		camServer = CameraServer.getInstance();
-		camera = camServer.addAxisCamera("10.0.79.3");
+		camServer.addCamera(cam);
+		
+		chooser.addObject("Left Wall : Scale", "LeftWallScale");
 		
 		SmartDashboard.putData("Auto mode", chooser);
-		System.out.println("~~~Robot initialization complete!~~~");
-		System.out.println("Run Test to generate the motion profile for autonomous.");
 		SmartDashboard.putData(driveTrain.gyro);
 		SmartDashboard.putData(gyroPID);
+		System.out.println("~~~Robot initialization complete!~~~");
+		System.out.println("Run Test to generate the motion profile for autonomous.");
 	}
 
 	/**
@@ -98,19 +103,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		String auto = chooser.getSelected();
 		//Lets the robot know which platform for the switches and scale is ours.
 		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage();
-		if(fmsMessage.charAt(0)=='L') {
-			//Auto for first switch placement on left
-		}else {
-			//Auto for first switch placement on right
+		if(auto.contains("Scale")) {
+			auto += fmsMessage.charAt(1);
+		}else if(auto.contains("Switch")){
+			auto += fmsMessage.charAt(0);
 		}
-		
-		autonomousCommand = chooser.getSelected();
-
-		if (autonomousCommand != null) {
-			autonomousCommand.start();
-		}
+		autoCommand = new RunMotionProfile(auto);
+		autoCommand.start();
 	}
 
 	/**
@@ -123,8 +125,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
+		if (autoCommand != null) {
+			autoCommand.cancel();
 		}
 	}
 
@@ -138,8 +140,13 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void testInit() {
-		//Will put in all the autos as such when the time comes
-//		MotionProfileManager.generate(autoName, points);
+		MotionProfileManager.generate("LeftWallScaleL", new Waypoint(0,0,0), new Waypoint(208, 0, 0), new Waypoint(266.148, -17, 0));
+		MotionProfileManager.generate("LeftWallSwitchL", new Waypoint(0,0,0), new Waypoint(107.18, -42, 0));
+		MotionProfileManager.generate("LeftWallScaleR", new Waypoint(0, 0, 0), new Waypoint(150, 0, 0), new Waypoint(208, -96.31, Math.toRadians(-90)), new Waypoint(266.148, -177.31, 0));
+		MotionProfileManager.generate("RightWallScaleR", new Waypoint(0, 0, 0), new Waypoint(208, 0, 0), new Waypoint(266.148, -17, 0));
+		MotionProfileManager.generate("RightWallScaleL", new Waypoint(0, 0, 0), new Waypoint(208, 0, 0), new Waypoint(0, -96.31, Math.toRadians(-90)), new Waypoint(58.148, 81, 90));
+		MotionProfileManager.generate("RightWallSwitchR", new Waypoint(0, 0, 0), new Waypoint(107.18, 42, 0));
+		MotionProfileManager.generate("MiddleWallSwitchR", new Waypoint(0, 0, 0), new Waypoint(108.55, 0, 0));
 	}
 
 	/**
@@ -147,6 +154,5 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		System.out.println(driveTrain.gyro.getRate());
 	}
 }
