@@ -15,7 +15,9 @@ import jaci.pathfinder.modifiers.TankModifier;
 
 public class MotionProfileManager {
 	
-	public static Config config = new Config(FitMethod.HERMITE_CUBIC, Config.SAMPLES_LOW, 0.05, 1.2, 2, 60);
+	//We're just going to make all of these units in inches.
+	//These units were chosen from what was in the example.
+	public static Config config = new Config(FitMethod.HERMITE_CUBIC, Config.SAMPLES_LOW, 0.05, 47.2441, 78.7402, 2362.2);
 	public static Trajectory leftPath, rightPath;
 	
 	public static void generate(String autoName, Waypoint... points) {
@@ -29,7 +31,7 @@ public class MotionProfileManager {
 			e.printStackTrace();
 			return;
 		}
-		TankModifier tank = new TankModifier(Pathfinder.generate(points, config)).modify(Conversions.feetToMeters(RobotDimensions.WHEEL_WIDTH/12d));
+		TankModifier tank = new TankModifier(Pathfinder.generate(points, config)).modify(RobotDimensions.WHEEL_WIDTH);
 		leftPath = tank.getLeftTrajectory();
 		rightPath = tank.getRightTrajectory();
 		Pathfinder.writeToCSV(pathFileLeft, leftPath);
