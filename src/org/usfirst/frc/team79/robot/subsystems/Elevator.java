@@ -28,6 +28,10 @@ public class Elevator extends Subsystem {
 		middleCounter = new Counter(middleSwitch);
 	}
 	
+	public void stopMotors(){
+		talon.set(ControlMode.PercentOutput, 0);
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		this.setDefaultCommand(new ControlElevator());
