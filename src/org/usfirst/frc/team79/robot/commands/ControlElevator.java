@@ -16,7 +16,6 @@ public class ControlElevator extends Command {
 	protected void initialize() {
 		Robot.elevator.topCounter.reset();
 		Robot.elevator.bottomCounter.reset();
-		Robot.elevator.middleCounter.reset();
 	}
 	
 	@Override
@@ -28,7 +27,6 @@ public class ControlElevator extends Command {
 	protected void end() {
 		Robot.elevator.topCounter.reset();
 		Robot.elevator.bottomCounter.reset();
-		Robot.elevator.middleCounter.reset();
 	}
 
 	@Override
