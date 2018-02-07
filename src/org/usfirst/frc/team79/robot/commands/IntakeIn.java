@@ -4,9 +4,31 @@ import org.usfirst.frc.team79.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeIn extends Command{
+	
+	public float time;
+	private boolean doTime;
+	private Timer timer;
+	
+	public IntakeIn() {
+		time = -1;
+	}
+	
+	public IntakeIn(float time) {
+		this.time = time;
+	}
+	
+	@Override
+	protected void initialize() {
+		if(time >= 0) {
+			doTime = true;
+		}
+		timer = new Timer();
+		timer.start();
+	}
 	
 	@Override
 	protected void execute() {
@@ -16,7 +38,7 @@ public class IntakeIn extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return !doTime || timer.hasPeriodPassed(time);
 	}
 
 }
