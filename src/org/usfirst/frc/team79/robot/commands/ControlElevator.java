@@ -28,6 +28,7 @@ public class ControlElevator extends Command {
 	
 	@Override
 	protected void end() {
+		Robot.elevator.stopMotors();
 	}
 
 	@Override

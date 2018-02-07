@@ -27,6 +27,7 @@ public class LowerElevator extends Command {
 	
 	@Override
 	protected void end() {
+		Robot.elevator.stopMotors();
 		Robot.elevator.middleCounter.reset();
 		Robot.elevator.bottomCounter.reset();
 	}
