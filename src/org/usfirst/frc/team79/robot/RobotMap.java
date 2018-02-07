@@ -15,6 +15,7 @@ package org.usfirst.frc.team79.robot;
  */
 public class RobotMap {
 	
+	//CAN Bus
 	public static int frontLeftTalon = 1;
 	public static int frontRightTalon = 2;
 	public static int backLeftTalon = 3;
@@ -26,4 +27,8 @@ public class RobotMap {
 	public static int climberTalon1 = 9;
 	public static int climberTalon2 = 10;
 	public static int climberTalon3 = 11;
+	
+	//Digital Input
+	public static int topElevatorSwitch = 0;
+	public static int bottomElevatorSwitch = 1;
 }
