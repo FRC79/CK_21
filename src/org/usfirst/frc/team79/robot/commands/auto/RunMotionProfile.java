@@ -65,8 +65,8 @@ public class RunMotionProfile extends Command{
 		for(int i=0; i<path.segments.length; i++) {
 			Segment seg = path.segments[i];
 			TrajectoryPoint point = new TrajectoryPoint();
-			point.position = Conversions.metersToFeet(seg.position)/RobotDimensions.WHEEL_CIRCUMFERENCE; //TODO: Currently in units of rotations. Need to convert to units of encoder
-			point.velocity = (Conversions.metersToFeet(seg.velocity)/RobotDimensions.WHEEL_CIRCUMFERENCE)*60d; //TODO: Currently in RPM. Need to convert to encoder units/min
+			point.position = (seg.position/RobotDimensions.WHEEL_CIRCUMFERENCE)*RobotDimensions.TICKS_PER_REV;
+			point.velocity = (seg.velocity/RobotDimensions.WHEEL_CIRCUMFERENCE)*60d*RobotDimensions.TICKS_PER_REV;
 			point.headingDeg = Math.toDegrees(seg.heading);
 			point.zeroPos = i==0;
 			point.isLastPoint = i==path.segments.length-1;;
