@@ -44,8 +44,8 @@ public class RunMotionProfile extends Command{
 				leftLoaded = true;
 			}
 		};
-		right.run();
-		left.run();
+		right.start();
+		left.start();
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
@@ -65,17 +65,17 @@ public class RunMotionProfile extends Command{
 			Segment seg = path.segments[i];
 			TrajectoryPoint point = new TrajectoryPoint();
 			point.position = (seg.position/RobotDimensions.WHEEL_CIRCUMFERENCE)*RobotDimensions.TICKS_PER_REV;
-			point.velocity = (seg.velocity/RobotDimensions.WHEEL_CIRCUMFERENCE)*60d*RobotDimensions.TICKS_PER_REV;
+			point.velocity = (seg.velocity/RobotDimensions.WHEEL_CIRCUMFERENCE)*RobotDimensions.TICKS_PER_REV;
 			point.headingDeg = Math.toDegrees(seg.heading);
 			point.zeroPos = i==0;
 			point.isLastPoint = i==path.segments.length-1;;
 			talon.pushMotionProfileTrajectory(point);
+			talon.processMotionProfileBuffer();
 		}
 	}
 	
 	@Override
 	protected void end() {
-		Robot.driveTrain.stopMotors();
 	}
 	
 	@Override
