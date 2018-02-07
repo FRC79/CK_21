@@ -8,11 +8,6 @@
 package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.Climber;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
 
 import org.usfirst.frc.team79.robot.pid.GyroPIDController;
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
@@ -62,20 +57,7 @@ public class Robot extends TimedRobot {
 		intake = new Intake();
 		climber = new Climber();
 
-		File pidFile = new File("/home/lvuser/pid/gyro.properties");
-		Properties pidProp = new Properties();
-		try {
-			pidProp.load(new FileInputStream(pidFile));
-			gyroPID = new GyroPIDController(Double.parseDouble(pidProp.getProperty("P", "0")), Double.parseDouble(pidProp.getProperty("I", "0")), Double.parseDouble(pidProp.getProperty("D", "0")));
-		} catch (FileNotFoundException e) {
-			System.out.println("PID file does not exist");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (NumberFormatException e) {
-			System.out.println("Some idiot saved something that wasn't a number... Setting all PID to 0.");
-			gyroPID = new GyroPIDController(0, 0, 0);
-		}
-    
+		gyroPID = new GyroPIDController();
 		oi = new OI();
 		
 		camServer = CameraServer.getInstance();
