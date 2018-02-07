@@ -14,24 +14,25 @@ public class ControlElevator extends Command {
 	
 	@Override
 	protected void initialize() {
-		Robot.elevator.topCounter.reset();
-		Robot.elevator.bottomCounter.reset();
 	}
 	
 	@Override
 	protected void execute() {
-		Robot.elevator.talon.set(ControlMode.PercentOutput, Robot.oi.operator.getZ());
+		double value = Math.copySign(Math.pow(Robot.oi.operator.getZ(), 2), Robot.oi.operator.getZ());
+		if(value > 0 && !Robot.elevator.topSwitch.get()){
+			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
+		}else if(value < 0 && !Robot.elevator.bottomSwitch.get()){
+			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
+		}else Robot.elevator.talon.set(ControlMode.PercentOutput, 0);
 	}
 	
 	@Override
 	protected void end() {
-		Robot.elevator.topCounter.reset();
-		Robot.elevator.bottomCounter.reset();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.elevator.topCounter.get()>0 || Robot.elevator.bottomCounter.get() > 0;
+		return false;
 	}
 	
 }
