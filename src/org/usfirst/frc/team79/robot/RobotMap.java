@@ -31,4 +31,5 @@ public class RobotMap {
 	//Digital Input
 	public static int topElevatorSwitch = 0;
 	public static int bottomElevatorSwitch = 1;
+	public static int middleElevatorSwitch = 2; 
 }

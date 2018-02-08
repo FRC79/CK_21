@@ -8,13 +8,16 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftElevator extends Command {
 	
-	public LiftElevator() {
-		
+	public boolean middle;
+	
+	public LiftElevator(boolean middle) {
+		this.middle = middle;
 	}
 	
 	@Override
 	protected void initialize() {
 		Robot.elevator.topCounter.reset();
+		Robot.elevator.middleCounter.reset();
 	}
 	
 	@Override
@@ -24,12 +27,14 @@ public class LiftElevator extends Command {
 	
 	@Override
 	protected void end() {
+		Robot.elevator.stopMotors();
 		Robot.elevator.topCounter.reset();
+		Robot.elevator.middleCounter.reset();
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.elevator.topCounter.get() > 0;
+		return Robot.elevator.topCounter.get() > 0 || (middle && Robot.elevator.middleCounter.get()>0);
 	}
 
 }
