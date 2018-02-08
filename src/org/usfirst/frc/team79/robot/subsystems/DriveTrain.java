@@ -49,6 +49,14 @@ public class DriveTrain extends Subsystem {
 	public int getLeftPos() {
 		return frontLeft.getSensorCollection().getQuadraturePosition();
 	}
+	
+	public int getRightVel() {
+		return frontRight.getSensorCollection().getQuadratureVelocity();
+	}
+	
+	public int getLeftVel() {
+		return frontLeft.getSensorCollection().getQuadratureVelocity();
+	}
 
 	@Override
 	protected void initDefaultCommand() {
