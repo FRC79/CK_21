@@ -135,6 +135,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Right Speed", driveTrain.getRightVel());
+		SmartDashboard.putNumber("Left Speed", driveTrain.getLeftVel());
 		Scheduler.getInstance().run();
 	}
 	
