@@ -9,6 +9,7 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.Climber;
 import org.usfirst.frc.team79.robot.commands.auto.RunMotionProfile;
+import org.usfirst.frc.team79.robot.lights.LEDPanel;
 import org.usfirst.frc.team79.robot.pathfinding.MotionProfileManager;
 import org.usfirst.frc.team79.robot.pid.GyroPIDController;
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
 	public static Elevator elevator;
 	public static Intake intake;
 	public static Climber climber;
+	public static LEDPanel ledPanel;
 	
 	public static GyroPIDController gyroPID;
 	
@@ -60,6 +62,9 @@ public class Robot extends TimedRobot {
 
 		gyroPID = new GyroPIDController();
 		oi = new OI();
+		
+		ledPanel = new LEDPanel();
+		ledPanel.sendText("Team 79 Krunch!");
 		
 		UsbCamera cam = new UsbCamera("cam0", 0);
 		cam.setBrightness(70);
@@ -149,6 +154,7 @@ public class Robot extends TimedRobot {
 		MotionProfileManager.generate("RightWallScaleL", new Waypoint(0, 0, 0), new Waypoint(208, 0, 0), new Waypoint(0, -96.31, Math.toRadians(-90)), new Waypoint(58.148, 81, 90));
 		MotionProfileManager.generate("RightWallSwitchR", new Waypoint(0, 0, 0), new Waypoint(107.18, 42, 0));
 		MotionProfileManager.generate("MiddleWallSwitchR", new Waypoint(0, 0, 0), new Waypoint(108.55, 0, 0));
+		MotionProfileManager.generate("Test", new Waypoint(0,0,0), new Waypoint(12, 0, 0)); //A test profile for tuning PID loops
 	}
 
 	/**
