@@ -20,13 +20,11 @@ public class RobotMap {
 	public static int frontRightTalon = 2;
 	public static int backLeftTalon = 3;
 	public static int backRightTalon = 4;
-	public static int leftElevatorTalon = 5;
-	public static int rightElevatorTalon = 6;
+	public static int elevatorTalon = 5;
 	public static int leftIntakeTalon = 7;
 	public static int rightIntakeTalon = 8;
-	public static int climberTalon1 = 9;
-	public static int climberTalon2 = 10;
-	public static int climberTalon3 = 11;
+	public static int climberRightTalon = 9;
+	public static int climberLeftTalon = 10;
 	
 	//Digital Input
 	public static int topElevatorSwitch = 0;

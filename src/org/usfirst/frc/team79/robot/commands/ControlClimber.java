@@ -16,9 +16,8 @@ public class ControlClimber extends Command {
 	protected void execute() {
 		double value = Robot.oi.operator.getY();
 		if(value >= 0) {
-			Robot.climber.motor1.set(ControlMode.PercentOutput, value);
-			Robot.climber.motor2.set(ControlMode.PercentOutput, value);
-			Robot.climber.motor3.set(ControlMode.PercentOutput, value);
+			Robot.climber.left.set(ControlMode.PercentOutput, value);
+			Robot.climber.right.set(ControlMode.PercentOutput, value);
 		}
 	}
 
