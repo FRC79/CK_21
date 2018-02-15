@@ -8,8 +8,8 @@
 package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.Climber;
+import org.usfirst.frc.team79.robot.commands.auto.CrossAuto;
 import org.usfirst.frc.team79.robot.commands.auto.RunMotionProfile;
-import org.usfirst.frc.team79.robot.lights.LEDPanel;
 import org.usfirst.frc.team79.robot.pathfinding.MotionProfileManager;
 import org.usfirst.frc.team79.robot.pid.GyroPIDController;
 import org.usfirst.frc.team79.robot.subsystems.DriveTrain;
@@ -40,7 +40,6 @@ public class Robot extends TimedRobot {
 	public static Elevator elevator;
 	public static Intake intake;
 	public static Climber climber;
-	public static LEDPanel ledPanel;
 	
 	public static GyroPIDController gyroPID;
 	
@@ -63,15 +62,16 @@ public class Robot extends TimedRobot {
 		gyroPID = new GyroPIDController();
 		oi = new OI();
 		
-		ledPanel = new LEDPanel();
-		ledPanel.sendText("Team 79 Krunch!");
-		
 		UsbCamera cam = new UsbCamera("cam0", 0);
 		cam.setBrightness(70);
 		camServer = CameraServer.getInstance();
 		camServer.addCamera(cam);
 		
 		chooser.addObject("Left Wall : Scale", "LeftWallScale");
+		chooser.addObject("Left Wall : Switch", "LeftWallSwitch");
+		chooser.addObject("Right Wall : Scale", "RightWallScale");
+		chooser.addObject("Right Wall : Switch", "RightWallSwitch");
+		chooser.addObject("Middle Wall : Switch", "MiddleWallSwitch");
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(driveTrain.gyro);
@@ -115,6 +115,10 @@ public class Robot extends TimedRobot {
 			auto += fmsMessage.charAt(1);
 		}else if(auto.contains("Switch")){
 			auto += fmsMessage.charAt(0);
+		}else {
+			autoCommand = new CrossAuto();
+			autoCommand.start();
+			return;
 		}
 		autoCommand = new RunMotionProfile(auto);
 		autoCommand.start();
