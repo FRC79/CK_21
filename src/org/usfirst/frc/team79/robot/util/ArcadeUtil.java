@@ -155,8 +155,8 @@ public class ArcadeUtil extends RobotDriveBase {
     // Square the inputs (while preserving the sign) to increase fine control
     // while permitting full power.
     if (squaredInputs) {
-      xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
-      zRotation = Math.copySign(zRotation * zRotation, zRotation);
+      xSpeed = Math.copySign(xSpeed * xSpeed * xSpeed * xSpeed, xSpeed);
+      zRotation = Math.copySign(zRotation * zRotation * zRotation, zRotation);
     }
 
     double leftMotorOutput;
