@@ -12,18 +12,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climber extends Subsystem{
 
-	public TalonSRX left, right;
+	public TalonSRX left, rightLeader;
 	
 	public Climber() {
-		left = new TalonSRX(RobotMap.climberRightTalon);
-		right = new TalonSRX(RobotMap.climberLeftTalon);
+		left = new TalonSRX(RobotMap.climberLeftTalon);
+		rightLeader = new TalonSRX(RobotMap.climberRightTalon);
 		
-		left.set(ControlMode.Follower, RobotMap.climberLeftTalon);
+		left.set(ControlMode.Follower, RobotMap.climberRightTalon);
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new ControlClimber());
 	}
 
 	
