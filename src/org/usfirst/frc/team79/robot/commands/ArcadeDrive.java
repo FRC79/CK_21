@@ -17,7 +17,7 @@ public class ArcadeDrive extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.arcadeDrive.arcadeDrive(-Robot.oi.drive.getY(), Robot.oi.drive.getZ(), true);
+		Robot.driveTrain.arcadeDrive.arcadeDrive(-Robot.oi.drive.getY(), 0.9*Robot.oi.drive.getX(), true);
 	}
 
 	@Override
