@@ -17,7 +17,7 @@ public class ControlClimber extends Command {
 		double value = Robot.oi.operator.getY();
 		if(value >= 0) {
 			Robot.climber.left.set(ControlMode.PercentOutput, value);
-			Robot.climber.right.set(ControlMode.PercentOutput, value);
+			Robot.climber.rightLeader.set(ControlMode.PercentOutput, value);
 		}
 	}
 
