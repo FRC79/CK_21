@@ -14,11 +14,12 @@ public class ControlClimber extends Command {
 	
 	@Override
 	protected void execute() {
-		double value = Robot.oi.operator.getY();
-		if(value >= 0) {
-			Robot.climber.left.set(ControlMode.PercentOutput, value);
-			Robot.climber.rightLeader.set(ControlMode.PercentOutput, value);
-		}
+		Robot.climber.rightLeader.set(ControlMode.PercentOutput, -Robot.oi.operator.getRawAxis(3));
+	}
+	
+	@Override
+	protected void end() {
+		Robot.climber.stopMotors();
 	}
 
 	@Override

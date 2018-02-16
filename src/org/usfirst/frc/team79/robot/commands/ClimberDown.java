@@ -17,6 +17,11 @@ public class ClimberDown extends Command{
 	}
 	
 	@Override
+	protected void end() {
+		Robot.climber.stopMotors();
+	}
+	
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}

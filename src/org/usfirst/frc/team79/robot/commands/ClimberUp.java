@@ -13,7 +13,12 @@ public class ClimberUp extends Command{
 	
 	@Override
 	protected void execute() {
-		Robot.climber.rightLeader.set(ControlMode.PercentOutput, 0.8);
+		Robot.climber.rightLeader.set(ControlMode.PercentOutput, 0.6);
+	}
+	
+	@Override
+	protected void end() {
+		Robot.climber.stopMotors();
 	}
 
 	@Override

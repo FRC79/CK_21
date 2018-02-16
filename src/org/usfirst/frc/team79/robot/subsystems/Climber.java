@@ -23,8 +23,11 @@ public class Climber extends Subsystem{
 	
 	@Override
 	protected void initDefaultCommand() {
+		this.setDefaultCommand(new ControlClimber());
 	}
 
-	
+	public void stopMotors() {
+		rightLeader.set(ControlMode.PercentOutput, 0);
+	}
 	
 }
