@@ -37,6 +37,11 @@ public class IntakeOut extends Command{
 	}
 	
 	@Override
+	protected void end() {
+		Robot.intake.stopMotors();
+	}
+	
+	@Override
 	protected boolean isFinished() {
 		return !doTime || timer.hasPeriodPassed(time);
 	}

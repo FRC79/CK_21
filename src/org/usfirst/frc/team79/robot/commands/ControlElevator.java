@@ -18,7 +18,7 @@ public class ControlElevator extends Command {
 	
 	@Override
 	protected void execute() {
-		double value = Math.copySign(Math.pow(Robot.oi.operator.getY(), 2), Robot.oi.operator.getY());
+		double value = Math.copySign(Math.pow(Robot.oi.operator.getZ(), 2), -Robot.oi.operator.getZ());
 		if(value > 0 && !Robot.elevator.topSwitch.get()){
 			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
 		}else if(value < 0 && !Robot.elevator.bottomSwitch.get()){
