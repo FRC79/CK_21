@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
 		camServer = CameraServer.getInstance();
 		camServer.addCamera(cam);
 		
+		chooser.addObject("Cross Auto Line", "CrossAuto");
 		chooser.addObject("Left Wall : Scale", "LeftWallScale");
 		chooser.addObject("Left Wall : Switch", "LeftWallSwitch");
 		chooser.addObject("Right Wall : Scale", "RightWallScale");
