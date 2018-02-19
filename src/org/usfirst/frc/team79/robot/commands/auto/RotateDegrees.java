@@ -1,4 +1,4 @@
-package org.usfirst.frc.team79.robot.commands;
+package org.usfirst.frc.team79.robot.commands.auto;
 
 import org.usfirst.frc.team79.robot.Robot;
 import org.usfirst.frc.team79.robot.pid.GyroPIDController;
@@ -11,6 +11,8 @@ public class RotateDegrees extends Command {
 
 	public GyroPIDController gyro;
 	public double displacement;
+	
+	private int count;
 	
 	public RotateDegrees(double displacement) {
 		gyro = Robot.gyroPID;
@@ -32,7 +34,10 @@ public class RotateDegrees extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return gyro.onTarget() && gyro.isEnabled();
+		if(gyro.onTarget()) {
+			count++;
+		}else count = 0;
+		return count >= 3 && gyro.isEnabled();
 	}
 
 }
