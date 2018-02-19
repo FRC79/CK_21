@@ -7,12 +7,10 @@
 
 package org.usfirst.frc.team79.robot;
 
-import org.usfirst.frc.team79.robot.commands.ClimberDown;
-import org.usfirst.frc.team79.robot.commands.ClimberUp;
 import org.usfirst.frc.team79.robot.commands.IntakeIn;
 import org.usfirst.frc.team79.robot.commands.IntakeOut;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -22,12 +20,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	public Joystick drive = new Joystick(0);
+	public XboxController drive = new XboxController(0);
 	
 
-	public Joystick operator = new Joystick(1);
-	public Button intakeIn = new JoystickButton(operator,7); 
-	public Button intakeOut = new JoystickButton(operator ,8);
+	public XboxController operator = new XboxController(1);
+	public Button intakeIn = new JoystickButton(operator,5); 
+	public Button intakeOut = new JoystickButton(operator ,6);
 	
 	public OI() {
 		intakeIn.whileHeld(new IntakeIn());
