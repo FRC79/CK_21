@@ -1,5 +1,7 @@
 package org.usfirst.frc.team79.robot.subsystems;
 
+import org.usfirst.frc.team79.robot.Robot;
+import org.usfirst.frc.team79.robot.RobotDimensions;
 import org.usfirst.frc.team79.robot.RobotMap;
 import org.usfirst.frc.team79.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team79.robot.util.ArcadeUtil;
@@ -42,20 +44,51 @@ public class DriveTrain extends Subsystem {
 		gyro = new ADXRS450_Gyro();
 	}
 	
+	public void arcadeDrive(double forward, double rotate) {
+		arcadeDrive.arcadeDrive(forward, rotate, true);
+	}
+	
+	public void driveStraight(double forward, double fixedAngle) {
+		double difference = fixedAngle - Robot.driveTrain.gyro.getAngle();
+		double value = Math.abs(difference)>0.25 ? difference * 0.1 : 0;
+		Robot.driveTrain.arcadeDrive(0.6, value);
+	}
+	
 	public int getRightPos() {
 		return frontRight.getSensorCollection().getQuadraturePosition();
+	}
+	
+	public double getRightInches() {
+		return getRightPos()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
 	}
 	
 	public int getLeftPos() {
 		return frontLeft.getSensorCollection().getQuadraturePosition();
 	}
 	
+	public double getLeftInches() {
+		return getLeftPos()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
+	}
+	
 	public int getRightVel() {
 		return frontRight.getSensorCollection().getQuadratureVelocity();
 	}
 	
+	public double getRightVelInches() {
+		return getRightVel()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
+	}
+	
 	public int getLeftVel() {
 		return frontLeft.getSensorCollection().getQuadratureVelocity();
+	}
+	
+	public double getLeftVelInches() {
+		return getLeftVel()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
+	}
+	
+	public void resetEncoders() {
+		frontRight.getSensorCollection().setQuadraturePosition(0, 0);
+		frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
 	}
 
 	@Override
