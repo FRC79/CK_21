@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CrossAuto extends CommandGroup{
 	
 	public CrossAuto() {
-		this.addSequential(new DriveTime(1.2));
+		this.addSequential(new DriveDistance(168.313));
 	}
 
 }
