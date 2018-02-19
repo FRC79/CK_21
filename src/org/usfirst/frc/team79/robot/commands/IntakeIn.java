@@ -43,7 +43,7 @@ public class IntakeIn extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		return !doTime && timer.hasPeriodPassed(time);
+		return doTime && timer.hasPeriodPassed(time);
 	}
 
 }
