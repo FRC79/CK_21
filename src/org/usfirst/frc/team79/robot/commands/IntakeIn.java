@@ -35,7 +35,7 @@ public class IntakeIn extends Command{
 	protected void execute() {
 		Robot.intake.leftMotor.set(ControlMode.PercentOutput , .8);
 		Robot.intake.rightMotor.set(ControlMode.PercentOutput, .8);
-		Robot.oi.operator.setRumble(RumbleType.kLeftRumble, 1);
+//		Robot.oi.operator.setRumble(RumbleType.kLeftRumble, 1);
 	}
 	
 	@Override
