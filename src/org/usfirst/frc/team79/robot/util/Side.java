@@ -1,5 +1,8 @@
 package org.usfirst.frc.team79.robot.util;
 
+/**
+ * Determines the side of the field. Used for switch/scale location and starting position.
+ */
 public enum Side {
 	
 	LEFT, RIGHT, MIDDLE;

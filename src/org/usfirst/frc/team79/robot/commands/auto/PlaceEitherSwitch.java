@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class PlaceEitherSwitch extends CommandGroup{
 	
+	/**
+	 * From the middle wall, places a block on either the left or right switch
+	 * @param swtch which side the switch is on
+	 */
 	public PlaceEitherSwitch(Side swtch) {
 		this.addSequential(new DriveDistance(47.477));
 		if(swtch==Side.LEFT) {
@@ -20,7 +24,7 @@ public class PlaceEitherSwitch extends CommandGroup{
 			this.addSequential(new RotateDegrees(-90));
 		}
 		this.addSequential(new DriveDistance(47.2));
-		this.addSequential(new LiftElevator(true));
+		this.addSequential(new LiftElevator(2));
 		this.addSequential(new IntakeOut(2));
 	}
 

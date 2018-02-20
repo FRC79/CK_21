@@ -12,6 +12,10 @@ public class DriveTime extends Command{
 	public Timer timer;
 	public double time;
 	
+	/**
+	 * Drives blindly for a certain amount of time
+	 * @param time in seconds
+	 */
 	public DriveTime(double time) {
 		this.time = time;
 	}

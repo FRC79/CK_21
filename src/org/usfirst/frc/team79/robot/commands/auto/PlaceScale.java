@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class PlaceScale extends CommandGroup{
 	
+	/**
+	 * From the left or right wall, places a block on the scale
+	 * @param scale Which side the scale is on
+	 * @param wall Which wall you're on
+	 */
 	public PlaceScale(Side scale, Side wall) {
 		if(wall==Side.LEFT) {
 			//From the left wall
@@ -42,7 +47,7 @@ public class PlaceScale extends CommandGroup{
 				this.addSequential(new DriveDistance(61.395));
 			}
 		}
-		this.addSequential(new LiftElevator(false));
+		this.addSequential(new LiftElevator(6));
 		this.addSequential(new IntakeOut(2));
 	}
 

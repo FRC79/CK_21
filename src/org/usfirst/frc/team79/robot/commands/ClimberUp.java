@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimberUp extends Command{
 	
+	/**
+	 * Pulls the climber up
+	 */
 	public ClimberUp() {
 	}
 	

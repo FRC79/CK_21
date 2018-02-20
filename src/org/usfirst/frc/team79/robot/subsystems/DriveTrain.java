@@ -5,7 +5,6 @@ import org.usfirst.frc.team79.robot.RobotDimensions;
 import org.usfirst.frc.team79.robot.RobotMap;
 import org.usfirst.frc.team79.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team79.robot.util.ArcadeUtil;
-import org.usfirst.frc.team79.robot.util.MecanumUtil;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -23,13 +22,12 @@ public class DriveTrain extends Subsystem {
 	
 	public ADXRS450_Gyro gyro;
 	
-	/**
-	 * Used for mecanum driving. Called in MecanumDrive command.
-	 */
-	public MecanumUtil mecDrive;
 	/** Used for arcade driving. Calling in ArcadeDrive command*/
-	public ArcadeUtil arcadeDrive;
+	public ArcadeUtil arcadeUtil;
 	
+	/**
+	 * Contains all the talons (and the gyro) necessary for driving the robot.
+	 */
 	public DriveTrain() {
 		frontLeft = new TalonSRX(RobotMap.frontLeftTalon);
 		frontRight = new TalonSRX(RobotMap.frontRightTalon);
@@ -39,53 +37,98 @@ public class DriveTrain extends Subsystem {
 		backLeft.set(ControlMode.Follower, RobotMap.frontLeftTalon);
 		backRight.set(ControlMode.Follower, RobotMap.frontRightTalon);
 		
-		arcadeDrive = new ArcadeUtil(frontLeft, frontRight);
+		arcadeUtil = new ArcadeUtil(frontLeft, frontRight);
 		
 		gyro = new ADXRS450_Gyro();
 	}
 	
+	/**
+	 * Move the robot using a forward value and a rotation value
+	 * @param forward -1 to 1 positive is forward
+	 * @param rotate -1 to 1 positive is clockwise
+	 */
 	public void arcadeDrive(double forward, double rotate) {
-		arcadeDrive.arcadeDrive(forward, rotate, true);
+		arcadeUtil.arcadeDrive(forward, rotate, true);
 	}
 	
+	/**
+	 * Use the gyroscope angle to fix the robot in a straight path
+	 * @param forward -1 to 1 positive is forward
+	 * @param fixedAngle the angle to fix the robot at
+	 */
 	public void driveStraight(double forward, double fixedAngle) {
 		double difference = fixedAngle - Robot.driveTrain.gyro.getAngle();
 		double value = Math.abs(difference)>0.25 ? difference * 0.1 : 0;
 		Robot.driveTrain.arcadeDrive(forward, value);
 	}
 	
+	/**
+	 * Gets the value of the right encoder
+	 * @return position in native encoder units
+	 */
 	public int getRightPos() {
 		return frontRight.getSensorCollection().getQuadraturePosition();
 	}
 	
+	/**
+	 * Gets the value of the right encoder
+	 * @return position in inches
+	 */
 	public double getRightInches() {
 		return getRightPos()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
 	}
 	
+	/**
+	 * Gets the value of the left encoder
+	 * @return position in native encoder units
+	 */
 	public int getLeftPos() {
 		return frontLeft.getSensorCollection().getQuadraturePosition();
 	}
 	
+	/**
+	 * Gets the value of the left encoder
+	 * @return position in inches
+	 */
 	public double getLeftInches() {
 		return getLeftPos()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
 	}
 	
+	/**
+	 * Gets the velocity measured by the right encoder
+	 * @return velocity in native encoder units per 100ms
+	 */
 	public int getRightVel() {
 		return frontRight.getSensorCollection().getQuadratureVelocity();
 	}
 	
+	/**
+	 * Gets the velocity measured by the right encoder
+	 * @return velocity in inches per 100ms
+	 */
 	public double getRightVelInches() {
 		return getRightVel()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
 	}
 	
+	/**
+	 * Gets the velocity measured by the left encoder
+	 * @return velocity in native encoder units per 100ms
+	 */
 	public int getLeftVel() {
 		return frontLeft.getSensorCollection().getQuadratureVelocity();
 	}
 	
+	/**
+	 * Gets the velocity measured by the left encoder
+	 * @return velocity in inches per 100ms
+	 */
 	public double getLeftVelInches() {
 		return getLeftVel()/RobotDimensions.TICKS_PER_REV*RobotDimensions.WHEEL_CIRCUMFERENCE;
 	}
 	
+	/**
+	 * Resets the encoder values to 0
+	 */
 	public void resetEncoders() {
 		frontRight.getSensorCollection().setQuadraturePosition(0, 0);
 		frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
@@ -95,7 +138,10 @@ public class DriveTrain extends Subsystem {
 	protected void initDefaultCommand() {
 		this.setDefaultCommand(new ArcadeDrive());
 	}
-
+	
+	/**
+	 * Stops all of the drive motors
+	 */
 	public void stopMotors() {
 		frontLeft.set(ControlMode.PercentOutput, 0);
 		frontRight.set(ControlMode.PercentOutput, 0);

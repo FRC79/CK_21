@@ -8,6 +8,10 @@ public class WaitForIt extends Command{
 	public Timer timer;
 	public double time;
 	
+	/**
+	 * Does nothing
+	 * @param time in seconds
+	 */
 	public WaitForIt(double time) {
 		this.time = time;
 	}

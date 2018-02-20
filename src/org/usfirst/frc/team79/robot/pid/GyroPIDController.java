@@ -18,7 +18,18 @@ public class GyroPIDController extends PIDController {
 	
 	public GyroPIDController() {
 		super(0, 0, 0, Robot.driveTrain.gyro, new GyroPIDOutput());
+		File propDir = new File("/home/lvuser/pid/");
+		if(!propDir.exists()) {
+			propDir.mkdirs();
+		}
 		propFile = new File("/home/lvuser/pid/gyro.properties");
+		if(!propFile.exists()) {
+			try {
+				propFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		pidProp = new Properties();
 		try {
 			pidProp.load(new FileInputStream(propFile));
@@ -31,7 +42,7 @@ public class GyroPIDController extends PIDController {
 			System.out.println("Read a non-number for PID. Setting all PID to 0.");
 		}
 		this.setName("Gyro PID");
-		this.setAbsoluteTolerance(0.05);
+		this.setAbsoluteTolerance(0.2);
 	}
 	
 	private void save() {

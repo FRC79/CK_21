@@ -14,6 +14,10 @@ public class RotateDegrees extends Command {
 	
 	private int count;
 	
+	/**
+	 * Rotates a specified numbers of degrees
+	 * @param displacement in degrees
+	 */
 	public RotateDegrees(double displacement) {
 		gyro = Robot.gyroPID;
 		this.displacement = displacement;

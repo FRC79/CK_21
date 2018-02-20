@@ -14,6 +14,9 @@ public class IntakeOut extends Command{
 	private boolean doTime;
 	private Timer timer;
 	
+	/**
+	 * Outtake the 'cube'
+	 */
 	public IntakeOut() {
 		time = -1;
 	}

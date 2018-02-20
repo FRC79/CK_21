@@ -51,7 +51,9 @@ public class Robot extends TimedRobot {
 
 	Command autoCommand;
 	SendableChooser<String> mpChooser = new SendableChooser<>();
+	/**For choosing what are starting configuration is*/
 	SendableChooser<Side> wallChooser = new SendableChooser<>();
+	/**For choosing what autonomous mode to run*/
 	SendableChooser<String> autoChooser = new SendableChooser<>();
 
 	/**
@@ -152,14 +154,18 @@ public class Robot extends TimedRobot {
 	private void autoEnc() {
 		String auto = autoChooser.getSelected();
 		Side wall = wallChooser.getSelected();
+		//The message sent from the Field Management System that determines where the switch and scale are
 		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
 		Side swtch = Side.fromChar(fmsMessage.charAt(0));
 		Side scale = Side.fromChar(fmsMessage.charAt(1));
-		if(wall==Side.MIDDLE) {
-			autoCommand = new PlaceEitherSwitch(swtch);
-			return;
+		if(auto.equals("CrossAuto")) {
+			autoCommand = new CrossAuto();
 		}
-		if (auto.equals("Scale")) {
+		else if(wall==Side.MIDDLE) {
+			//The middle starting configuration has one auto function.
+			autoCommand = new PlaceEitherSwitch(swtch);
+		}
+		else if (auto.equals("Scale")) {
 			autoCommand = new PlaceScale(scale, wall);
 		} else if (auto.equals("Switch")) {
 			// If the switch is on the opposite side, the robot will just cross auto

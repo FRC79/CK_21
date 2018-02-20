@@ -6,24 +6,17 @@ import org.usfirst.frc.team79.robot.commands.ControlElevator;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem {
 
 	public TalonSRX talon;
-	public DigitalInput topSwitch, bottomSwitch, middleSwitch;
-	public Counter topCounter, bottomCounter, middleCounter;
 	
+	/**
+	 * Contains the motor for lifting the elevator intake system
+	 */
 	public Elevator() {
 		talon = new TalonSRX(RobotMap.elevatorTalon);
-		topSwitch = new DigitalInput(RobotMap.topElevatorSwitch);
-		bottomSwitch = new DigitalInput(RobotMap.bottomElevatorSwitch);
-		middleSwitch = new DigitalInput(RobotMap.middleElevatorSwitch);
-		topCounter = new Counter(topSwitch);
-		bottomCounter = new Counter(bottomSwitch);
-		middleCounter = new Counter(middleSwitch);
 	}
 	
 	public void stopMotors(){

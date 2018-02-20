@@ -18,7 +18,7 @@ public class PlaceScaleMP extends CommandGroup {
 	 * @param side A single character representing which scale is ours
 	 */
 	public PlaceScaleMP(String wall, char side) {
-		this.addParallel(new LiftElevator(false));
+		this.addParallel(new LiftElevator(6));
 		this.addSequential(new RunMotionProfile(wall+"WallScale"+side));
 		this.addSequential(new WaitCommand(0.5));
 		this.addSequential(new IntakeOut(2));

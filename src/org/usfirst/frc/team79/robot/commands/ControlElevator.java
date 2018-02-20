@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ControlElevator extends Command {
 
+	/**
+	 * Uses the joystick to control the elevator
+	 */
 	public ControlElevator() {
 		requires(Robot.elevator);
 	}

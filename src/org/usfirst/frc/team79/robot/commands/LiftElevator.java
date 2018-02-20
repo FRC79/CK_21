@@ -4,20 +4,35 @@ import org.usfirst.frc.team79.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftElevator extends Command {
 	
-	public boolean middle;
+	public boolean doTime;
+	public double time;
+	public Timer timer;
 	
-	public LiftElevator(boolean middle) {
-		this.middle = middle;
+	/**
+	 * Lifts the elevator
+	 */
+	public LiftElevator() {
+		doTime = false;
+		time = -1;
+	}
+	
+	/**
+	 * Lifts the elevator for a certain amount of time
+	 * @param time in seconds
+	 */
+	public LiftElevator(double time) {
+		doTime = true;
+		this.time = time;
 	}
 	
 	@Override
 	protected void initialize() {
-		Robot.elevator.topCounter.reset();
-		Robot.elevator.middleCounter.reset();
+		timer = new Timer();
 	}
 	
 	@Override
@@ -28,13 +43,11 @@ public class LiftElevator extends Command {
 	@Override
 	protected void end() {
 		Robot.elevator.stopMotors();
-		Robot.elevator.topCounter.reset();
-		Robot.elevator.middleCounter.reset();
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return Robot.elevator.topCounter.get() > 0 || (middle && Robot.elevator.middleCounter.get()>0);
+		return doTime && timer.hasPeriodPassed(time);
 	}
 
 }

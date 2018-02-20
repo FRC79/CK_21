@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ControlClimber extends Command {
 	
+	/**
+	 * Uses the operator joystick to control the climber
+	 */
 	public ControlClimber() {
 		requires(Robot.climber);
 	}

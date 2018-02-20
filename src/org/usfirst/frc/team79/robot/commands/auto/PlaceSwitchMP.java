@@ -18,7 +18,7 @@ public class PlaceSwitchMP extends CommandGroup{
 	 * @param side A single character representing which switch is ours
 	 */
 	public PlaceSwitchMP(String wall, char side) {
-		this.addParallel(new LiftElevator(true));
+		this.addParallel(new LiftElevator(2));
 		this.addSequential(new RunMotionProfile(wall+"WallSwitch"+side));
 		this.addSequential(new WaitCommand(0.5));
 		this.addSequential(new IntakeOut(2));

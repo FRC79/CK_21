@@ -6,6 +6,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class PlaceSwitch extends CommandGroup {
 	
+	/**
+	 * From the left or right wall, places a block on the switch
+	 * @param swtch Which side the switch is on
+	 * @param wall Which wall you're on
+	 */
 	public PlaceSwitch(Side swtch, Side wall) {
 		if(wall==Side.LEFT) {
 			//From the left wall

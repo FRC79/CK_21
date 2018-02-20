@@ -20,6 +20,10 @@ public class RunMotionProfile extends Command{
 	
 	private volatile boolean leftLoaded, rightLoaded;
 	
+	/**
+	 * I'm really sad that this coulnd't happen.
+	 * @param autoName
+	 */
 	public RunMotionProfile(String autoName) {
 		this.autoName = autoName;
 	}

@@ -14,6 +14,9 @@ public class Climber extends Subsystem{
 
 	public TalonSRX left, rightLeader;
 	
+	/**
+	 * Contains the motors for the climber
+	 */
 	public Climber() {
 		left = new TalonSRX(RobotMap.climberLeftTalon);
 		rightLeader = new TalonSRX(RobotMap.climberRightTalon);
