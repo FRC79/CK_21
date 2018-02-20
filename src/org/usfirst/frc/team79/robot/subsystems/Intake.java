@@ -14,6 +14,7 @@ public class Intake extends Subsystem  {
 	public Intake(){
 		leftMotor = new TalonSRX(RobotMap.leftIntakeTalon);
 		rightMotor = new TalonSRX(RobotMap.rightIntakeTalon);
+		rightMotor.setInverted(true);
 	}
 	
 	@Override

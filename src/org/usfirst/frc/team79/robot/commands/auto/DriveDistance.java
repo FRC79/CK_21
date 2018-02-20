@@ -25,7 +25,7 @@ public class DriveDistance extends Command{
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.driveStraight(0.6, 0);
+		Robot.driveTrain.driveStraight(0.4, 0);
 	}
 	
 	@Override

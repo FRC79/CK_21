@@ -1,27 +1,35 @@
 package org.usfirst.frc.team79.robot.commands.auto;
 
-import org.usfirst.frc.team79.robot.commands.IntakeOut;
-import org.usfirst.frc.team79.robot.commands.LiftElevator;
+import org.usfirst.frc.team79.robot.util.Side;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
-/**
- * Autonomous command for placing a Power "Cube" on the alliance switch
- *
- */
-public class PlaceSwitch extends CommandGroup{
+public class PlaceSwitch extends CommandGroup {
 	
-	/**
-	 * Attempts to autonomously place a block on the switch during autonomous period
-	 * @param wall The left or right side of the field
-	 * @param side A single character representing which switch is ours
-	 */
-	public PlaceSwitch(String wall, char side) {
-		this.addParallel(new LiftElevator(true));
-		this.addSequential(new RunMotionProfile(wall+"WallSwitch"+side));
-		this.addSequential(new WaitCommand(0.5));
-		this.addSequential(new IntakeOut(2));
+	public PlaceSwitch(Side swtch, Side wall) {
+		if(wall==Side.LEFT) {
+			//From the left wall
+			if(swtch==Side.LEFT) {
+				//To the left switch
+				this.addSequential(new DriveDistance(145.208));
+				this.addSequential(new RotateDegrees(90));
+				this.addSequential(new DriveDistance(29.895));
+			}else {
+				//Just cross the auto line
+				this.addSequential(new CrossAuto());
+			}
+		}else {
+			//From the right wall
+			if(swtch==Side.RIGHT) {
+				//To the right switch
+				this.addSequential(new DriveDistance(145.208));
+				this.addSequential(new RotateDegrees(-90));
+				this.addSequential(new DriveDistance(29.895));
+			}else {
+				//Just cross the auto line
+				this.addSequential(new CrossAuto());
+			}
+		}
 	}
 
 }

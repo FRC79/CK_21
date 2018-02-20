@@ -41,18 +41,28 @@ void loop() {
   //For media night
   displayText("HI MOM!   HI DAD!", 0x00ff99, 0x5b004e);
   crossLines(0x00ff99, 0x5b004e);
-  displayText("WELCOME TO THE 2018 MEDIA NIGHT!", 0xFFFFFF, 0x151577);
-  displayText("THANKS TO OUR SPONSORS:", 0xFFFFFF, 0x151577);
-  displayText("EAST LAKE HIGH SCHOOL", 0xFFFFFF, 0x006496);
-  displayText("HONEYWELL", 0xeb3527, 0xBBBBBB);
-  displayText("JABIL", 0x595959, 0xBBBBBB);
-  displayText("PINELLAS COUNTY STEM ACADEMY", 0x3b4f81, 0xdadbd4);
-  displayText("DEFENSEWERX", 0xCC0000, 0x004888);
-  //  displayText("BUTLER", textColor, backgroundColor);
-  displayText("GE", 0x326FBD, 0xBBBBBB);
-  displayText("NETWORK FOR GOOD", 0x809EFF, 0x70C020);
-  displayText("JMS MEDICAL SUPPLY", 0x00ABE4, 0xBBBBBB);
-  displayText("TATA CONSULTANCY SERVICES", 0x665CC7, 0xBBBBBB);
+  displayText("WELCOME TO THE 2018 MEDIA NIGHT!", 0xFFFFFF, 0);
+  displayText("THANKS TO OUR SPONSORS:", 0xFFFFFF, 0);
+  displayText("EAST LAKE HIGH SCHOOL", 0xFFFFFF, 0);
+  displayText("HONEYWELL", 0xeb3527, 0);
+  displayText("JABIL", 0x595959, 0);
+  displayText("PINELLAS COUNTY STEM ACADEMY", 0x3b4f81, 0);
+  displayText("DOOLITTLE INSTITUTE", 0x0950f7, 0);
+  displayText("BUTLER", 0xcc14ff, 0);
+  displayText("GE", 0x326FBD, 0);
+  displayText("NETWORK FOR GOOD", 0x809EFF, 0);
+  displayText("JMS MEDICAL SUPPLY", 0x00ABE4, 0);
+  displayText("TATA CONSULTANCY SERVICES", 0x665CC7, 0);
+  displayText("DEX IMAGING", 0xCC0000, 0);
+  displayText("LOWE'S", 0x0015d8, 0);
+  displayText("MAGIC BUS", 0xff960c, 0);
+  displayText("ROTARY INTERNATIONAL", 0xf7ef09, 0);
+  displayText("PINELLAS COUNTY SCHOOLS", 0x1cff41, 0);
+  displayText("STATE OF FLORIDA", 0xff960c, 0);
+  water();
+  rainbow();
+  checkerboard(0xf91bd8, 0x16ff92);
+  powerOff();
 }
 
 void line(uint32_t color) {

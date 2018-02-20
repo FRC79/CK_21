@@ -51,7 +51,7 @@ public class DriveTrain extends Subsystem {
 	public void driveStraight(double forward, double fixedAngle) {
 		double difference = fixedAngle - Robot.driveTrain.gyro.getAngle();
 		double value = Math.abs(difference)>0.25 ? difference * 0.1 : 0;
-		Robot.driveTrain.arcadeDrive(0.6, value);
+		Robot.driveTrain.arcadeDrive(forward, value);
 	}
 	
 	public int getRightPos() {

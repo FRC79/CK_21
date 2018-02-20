@@ -5,6 +5,7 @@ import org.usfirst.frc.team79.robot.Robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeOut extends Command{
@@ -34,16 +35,18 @@ public class IntakeOut extends Command{
 	protected void execute() {
 		Robot.intake.leftMotor.set(ControlMode.PercentOutput , -.8);
 		Robot.intake.rightMotor.set(ControlMode.PercentOutput, -.8);
+//		Robot.oi.operator.setRumble(RumbleType.kLeftRumble, 1);
 	}
 	
 	@Override
 	protected void end() {
 		Robot.intake.stopMotors();
+		Robot.oi.operator.setRumble(RumbleType.kLeftRumble, 0);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return !doTime && timer.hasPeriodPassed(time);
+		return doTime && timer.hasPeriodPassed(time);
 	}
 
 }

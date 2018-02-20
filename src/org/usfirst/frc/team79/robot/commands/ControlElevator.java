@@ -4,6 +4,7 @@ import org.usfirst.frc.team79.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ControlElevator extends Command {
@@ -18,12 +19,13 @@ public class ControlElevator extends Command {
 	
 	@Override
 	protected void execute() {
-		double value = Math.copySign(Math.pow(Robot.oi.operator.getY(), 2), -Robot.oi.operator.getY());
-		if(value > 0 && !Robot.elevator.topSwitch.get()){
-			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
-		}else if(value < 0 && !Robot.elevator.bottomSwitch.get()){
-			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
-		}else Robot.elevator.talon.set(ControlMode.PercentOutput, 0);
+		double value = 0.7*Math.copySign(Math.pow(Robot.oi.operator.getY(Hand.kLeft), 2), -Robot.oi.operator.getY(Hand.kLeft));
+//		if(value > 0 && !Robot.elevator.topSwitch.get()){
+//			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
+//		}else if(value < 0 && !Robot.elevator.bottomSwitch.get()){
+//			Robot.elevator.talon.set(ControlMode.PercentOutput, value);
+//		}else Robot.elevator.talon.set(ControlMode.PercentOutput, 0);
+		Robot.elevator.talon.set(ControlMode.PercentOutput, value);
 	}
 	
 	@Override

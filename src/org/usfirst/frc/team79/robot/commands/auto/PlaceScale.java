@@ -2,26 +2,48 @@ package org.usfirst.frc.team79.robot.commands.auto;
 
 import org.usfirst.frc.team79.robot.commands.IntakeOut;
 import org.usfirst.frc.team79.robot.commands.LiftElevator;
+import org.usfirst.frc.team79.robot.util.Side;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
-/**
- * Autonomous command for placing a Power "Cube" on the center scale
- *
- */
-public class PlaceScale extends CommandGroup {
+public class PlaceScale extends CommandGroup{
 	
-	/**
-	 * Attempts to autonomously place a block on the scale during autonomous period
-	 * @param wall The left or right side of the field
-	 * @param side A single character representing which scale is ours
-	 */
-	public PlaceScale(String wall, char side) {
-		this.addParallel(new LiftElevator(false));
-		this.addSequential(new RunMotionProfile(wall+"WallScale"+side));
-		this.addSequential(new WaitCommand(0.5));
+	public PlaceScale(Side scale, Side wall) {
+		if(wall==Side.LEFT) {
+			//From the left wall
+			if(scale==Side.LEFT) {
+				//To the left scale
+				this.addSequential(new DriveDistance(300.395));
+				this.addSequential(new RotateDegrees(90));
+				this.addSequential(new DriveDistance(36.895));
+			}else {
+				//To the right scale
+				this.addSequential(new DriveDistance(216));
+				this.addSequential(new RotateDegrees(90));
+				this.addSequential(new DriveDistance(225.895));
+				this.addSequential(new RotateDegrees(-90));
+				this.addSequential(new DriveDistance(61.395));
+			}
+		}else {
+			//From the right wall
+			if(scale==Side.LEFT) {
+				//To the left scale
+				this.addSequential(new DriveDistance(212));
+				this.addSequential(new RotateDegrees(-90));
+				this.addSequential(new DriveDistance(228.5));
+				this.addSequential(new RotateDegrees(90));
+				this.addSequential(new DriveDistance(68.5));
+			}else {
+				//To the right scale
+				this.addSequential(new DriveDistance(216));
+				this.addSequential(new RotateDegrees(-90));
+				this.addSequential(new DriveDistance(225.895));
+				this.addSequential(new RotateDegrees(90));
+				this.addSequential(new DriveDistance(61.395));
+			}
+		}
+		this.addSequential(new LiftElevator(false));
 		this.addSequential(new IntakeOut(2));
 	}
-	
+
 }
