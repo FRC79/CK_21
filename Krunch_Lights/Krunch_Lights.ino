@@ -35,7 +35,7 @@ void loop() {
   rainbow();
   displayText("WOODIE FLOWERS IS OUR HERO!", 0xF918AE, 0);
   water();
-  displayText("WATER GAME 2019 CONFIRMED!", 0xFFFFFF, 0x3737FC);
+  displayText("WATER GAME 2019 CONFIRMED!", 0xFFFFFF, 0x0707CC);
   powerOff();
 
   //For media night
@@ -170,24 +170,21 @@ void water() {
   int x1 = 0;
   int dy = 0;
   for (int i = 0; i < 49; i++) {
+    delay(1);
     x = random(WIDTH);
     x1 = random(WIDTH);
     while (x1 == x) x1 = random(WIDTH);
     dy = random(5);
     for (int y = -3; y < HEIGHT + 3; y++) {
-      delay(1);
       FastLED.show();
       setPix(x, y - 2, color);
       setPix(x1, y - 2 + dy, color);
-      delay(1);
       FastLED.show();
       setPix(x, y - 1, color);
       setPix(x1, y - 1 + dy, color);
-      delay(1);
       FastLED.show();
       setPix(x, y, color);
       setPix(x1, y + dy, color);
-      delay(1);
       FastLED.show();
       if (y - 3 < HEIGHT - i / 7) {
         setPix(x, y - 3, 0);
