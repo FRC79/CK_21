@@ -9,6 +9,7 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.commands.IntakeIn;
 import org.usfirst.frc.team79.robot.commands.IntakeOut;
+import org.usfirst.frc.team79.robot.commands.auto.RotateDegrees;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -27,10 +28,13 @@ public class OI {
 	public XboxController operator = new XboxController(1);
 	public Button intakeIn = new JoystickButton(operator,5); 
 	public Button intakeOut = new JoystickButton(operator ,6);
+	public Button testRotate = new JoystickButton(operator, 3);
 	
 	public OI() {
 		intakeIn.whileHeld(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
+		
+//		testRotate.toggleWhenPressed(new RotateDegrees(30));
 	}
 	
 }
