@@ -47,8 +47,6 @@ public class Robot extends TimedRobot {
 
 	public static GyroPIDController gyroPID;
 
-	public static CameraServer camServer;
-
 	Command autoCommand;
 	SendableChooser<String> mpChooser = new SendableChooser<>();
 	/**For choosing what are starting configuration is*/
@@ -70,10 +68,7 @@ public class Robot extends TimedRobot {
 		gyroPID = new GyroPIDController();
 		oi = new OI();
 
-		UsbCamera cam = new UsbCamera("cam0", 0);
-		cam.setBrightness(70);
-		camServer = CameraServer.getInstance();
-		camServer.addCamera(cam);
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 
 		wallChooser.addObject("Left Wall", Side.LEFT);
 		wallChooser.addObject("Right Wall", Side.RIGHT);
