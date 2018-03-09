@@ -50,9 +50,9 @@ public class Robot extends TimedRobot {
 	Command autoCommand;
 	SendableChooser<String> mpChooser = new SendableChooser<>();
 	/**For choosing what are starting configuration is*/
-	SendableChooser<Side> wallChooser = new SendableChooser<>();
+	SendableChooser<String> wallChooser;
 	/**For choosing what autonomous mode to run*/
-	SendableChooser<String> autoChooser = new SendableChooser<>();
+	SendableChooser<String> autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -70,10 +70,14 @@ public class Robot extends TimedRobot {
 
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 
-		wallChooser.addDefault("Left Wall", Side.LEFT);
-		wallChooser.addObject("Right Wall", Side.RIGHT);
-		wallChooser.addObject("Middle Wall", Side.MIDDLE);
+		wallChooser = new SendableChooser<>();
+		wallChooser.setName("Starting Location");
+		wallChooser.addDefault("Left Wall", "L");
+		wallChooser.addObject("Right Wall", "R");
+		wallChooser.addObject("Middle Wall", "M");
 
+		autoChooser = new SendableChooser<>();
+		autoChooser.setName("Autonomous Mode");
 		autoChooser.addDefault("Cross Line", "CrossAuto");
 		autoChooser.addObject("Place Scale", "Scale");
 		autoChooser.addObject("Place Switch", "Switch");
@@ -87,8 +91,8 @@ public class Robot extends TimedRobot {
 //		mpChooser.addObject("Right Wall : Switch", "RightWallSwitch");
 //		mpChooser.addObject("Middle Wall : Switch", "MiddleWallSwitch");
 
-		SmartDashboard.putData("Starting Location", wallChooser);
-		SmartDashboard.putData("Autonomous Mode", autoChooser);
+		SmartDashboard.putData(wallChooser);
+		SmartDashboard.putData(autoChooser);
 		SmartDashboard.putData(driveTrain.gyro);
 		SmartDashboard.putData(gyroPID);
 		System.out.println("~~~Robot initialization complete!~~~");
@@ -149,7 +153,7 @@ public class Robot extends TimedRobot {
 	private void autoEnc() {
 		autoCommand = null;
 		String auto = autoChooser.getSelected();
-		Side wall = wallChooser.getSelected();
+		Side wall = Side.fromChar(wallChooser.getSelected().charAt(0));
 		System.out.println("AUTO: User selected auto:" + auto + ", wall: " + wall);
 		//The message sent from the Field Management System that determines where the switch and scale are
 		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
