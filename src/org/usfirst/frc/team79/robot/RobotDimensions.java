@@ -14,5 +14,20 @@ public class RobotDimensions {
 	
 	/**The amount of encoder ticks per 1 revolution*/
 	public static final int TICKS_PER_REV = 1200; //TODO
+	
+	/**
+	 * The width of the starting configuration of the robot in inches
+	 */
+	public static final double ROBOT_WIDTH = 34.21;
+	
+	/**
+	 * The height of the starting configuration of the robot in inches
+	 */
+	public static final double ROBOT_HEIGHT = 66;
+	
+	/**
+	 * The lenth of the starting configuration of the robot in inches
+	 */
+	public static final double ROBOT_LENGTH = 46.21;
 
 }
