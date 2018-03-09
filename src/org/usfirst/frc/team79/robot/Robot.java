@@ -147,26 +147,34 @@ public class Robot extends TimedRobot {
 
 	// Using encoders and gyro to get around
 	private void autoEnc() {
+		autoCommand = null;
 		String auto = autoChooser.getSelected();
 		Side wall = wallChooser.getSelected();
+		System.out.println("AUTO: User selected auto:" + auto + ", wall: " + wall);
 		//The message sent from the Field Management System that determines where the switch and scale are
 		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
+		System.out.println("AUTO: FMS Message: " + fmsMessage);
 		Side swtch = Side.fromChar(fmsMessage.charAt(0));
 		Side scale = Side.fromChar(fmsMessage.charAt(1));
+		System.out.println("AUTO: Switch: " + swtch.toString() + ". Scale: " + scale.toString());
 		if(auto.equals("CrossAuto")) {
+			System.out.println("AUTO: Running CrossAuto");
 			autoCommand = new CrossAuto();
 		}
 		else if(wall==Side.MIDDLE) {
 			//The middle starting configuration has one auto function.
+			System.out.println("AUTO: Running PlaceEitherSwitch");
 			autoCommand = new PlaceEitherSwitch(swtch);
 		}
 		else if (auto.equals("Scale")) {
+			System.out.println("AUTO: Running PlaceScale");
 			autoCommand = new PlaceScale(scale, wall);
 		} else if (auto.equals("Switch")) {
 			// If the switch is on the opposite side, the robot will just cross auto
+			System.out.println("AUTO: Running PlaceSwitch");
 			autoCommand = new PlaceSwitch(swtch, wall);
 		} else if (auto.contains("Either")) {
-			if (fmsMessage.contains("" + wall.toChar())) {
+			System.out.println("AUTO: Running Either");
 				if (auto.contains("Scale")) {
 					if (scale == wall) {
 						autoCommand = new PlaceScale(scale, wall);
@@ -180,11 +188,12 @@ public class Robot extends TimedRobot {
 						autoCommand = new PlaceScale(scale, wall);
 					}
 				}
-			}
 		}
 
-		if (autoCommand == null)
+		if (autoCommand == null) {
+			System.out.println("AUTO: Running CrossAuto (by null case)");
 			autoCommand = new CrossAuto();
+		}
 		autoCommand.start();
 	}
 
