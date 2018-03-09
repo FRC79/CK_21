@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveTime extends Command{
 
 	public Timer timer;
-	public double time;
+	public double time, speed;
 	
 	/**
 	 * Drives blindly for a certain amount of time
 	 * @param time in seconds
 	 */
-	public DriveTime(double time) {
+	public DriveTime(double time, double speed) {
 		this.time = time;
+		this.speed = speed;
 	}
 	
 	@Override
@@ -27,8 +28,8 @@ public class DriveTime extends Command{
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.frontLeft.set(ControlMode.PercentOutput, 0.5);
-		Robot.driveTrain.frontRight.set(ControlMode.PercentOutput, 0.5);
+		Robot.driveTrain.frontLeft.set(ControlMode.PercentOutput, speed);
+		Robot.driveTrain.frontRight.set(ControlMode.PercentOutput, speed);
 	}
 	
 	@Override

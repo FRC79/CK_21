@@ -12,7 +12,7 @@ public class RobotDimensions {
 	/**The circumference of the wheel in inches*/
 	public static final double WHEEL_CIRCUMFERENCE = Math.PI*(WHEEL_DIAMETER);
 	
+	
 	/**The amount of encoder ticks per 1 revolution*/
 	public static final int TICKS_PER_REV = 1200; //TODO
-
 }

@@ -9,6 +9,7 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.subsystems.Climber;
 import org.usfirst.frc.team79.robot.commands.auto.CrossAuto;
+import org.usfirst.frc.team79.robot.commands.auto.DriveTime;
 import org.usfirst.frc.team79.robot.commands.auto.PlaceEitherSwitch;
 import org.usfirst.frc.team79.robot.commands.auto.PlaceScale;
 import org.usfirst.frc.team79.robot.commands.auto.PlaceSwitch;
@@ -124,73 +125,73 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autoEnc();
+		autoCommand = new DriveTime(2.0,.5);
+		autoCommand.start();
 	}
-
+	
 	// For if we ever get motion profiling working
-	private void autoMP() {
-		String auto = mpChooser.getSelected();
-		// Lets the robot know which platform for the switches and scale is ours.
-		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage();
-		if (auto.contains("Scale")) {
-			auto += fmsMessage.charAt(1);
-		} else if (auto.contains("Switch")) {
-			auto += fmsMessage.charAt(0);
-		} else {
-			autoCommand = new CrossAuto();
-			autoCommand.start();
-			return;
-		}
-		autoCommand = new RunMotionProfile(auto);
-		autoCommand.start();
-	}
+//	private void autoMP() {
+//		String auto = mpChooser.getSelected();
+//		// Lets the robot know which platform for the switches and scale is ours.
+//		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage();
+//		if (auto.contains("Scale")) {
+//			auto += fmsMessage.charAt(1);
+//		} else if (auto.contains("Switch")) {
+//			auto += fmsMessage.charAt(0);
+//		} else {
+//			autoCommand = new CrossAuto();
+//			return;
+//		}
+//		autoCommand = new RunMotionProfile(auto);
+//		autoCommand.start();
+//	}
 
-	// Using encoders and gyro to get around
-	private void autoEnc() {
-		String auto = autoChooser.getSelected();
-		Side wall = wallChooser.getSelected();
-		//The message sent from the Field Management System that determines where the switch and scale are
-		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
-		Side swtch = Side.fromChar(fmsMessage.charAt(0));
-		Side scale = Side.fromChar(fmsMessage.charAt(1));
-		if(auto.equals("CrossAuto")) {
-			autoCommand = new CrossAuto();
-		}
-		else if(wall==Side.MIDDLE) {
-			//The middle starting configuration has one auto function.
-			autoCommand = new PlaceEitherSwitch(swtch);
-		}
-		else if (auto.equals("Scale")) {
-			autoCommand = new PlaceScale(scale, wall);
-		} else if (auto.equals("Switch")) {
-			// If the switch is on the opposite side, the robot will just cross auto
-			autoCommand = new PlaceSwitch(swtch, wall);
-		} else if (auto.contains("Either")) {
-			if (fmsMessage.contains("" + wall.toChar())) {
-				if (auto.contains("Scale")) {
-					if (scale == wall) {
-						autoCommand = new PlaceScale(scale, wall);
-					} else if (swtch == wall) {
-						autoCommand = new PlaceSwitch(swtch, wall);
-					}
-				} else {
-					if (swtch == wall) {
-						autoCommand = new PlaceSwitch(swtch, wall);
-					} else if (scale == wall) {
-						autoCommand = new PlaceScale(scale, wall);
-					}
-				}
-			}
-		}
-
-		if (autoCommand == null)
-			autoCommand = new CrossAuto();
-		autoCommand.start();
-	}
-
-	/**
-	 * This function is called periodically during autonomous.
-	 */
+// Using encoders and gyro to get around
+//	private void autoEnc() {
+//		String auto = autoChooser.getSelected();
+//		Side wall = wallChooser.getSelected();
+//		//The message sent from the Field Management System that determines where the switch and scale are
+//		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
+//		Side swtch = Side.fromChar(fmsMessage.charAt(0));
+//		Side scale = Side.fromChar(fmsMessage.charAt(1));
+//		if(auto.equals("CrossAuto")) {
+//			autoCommand = new CrossAuto();
+//		}
+//		else if(wall==Side.MIDDLE) {
+//			//The middle starting configuration has one auto function.
+//			autoCommand = new PlaceEitherSwitch(swtch);
+//		}
+//		else if (auto.equals("Scale")) {
+//			autoCommand = new PlaceScale(scale, wall);
+//		} else if (auto.equals("Switch")) {
+//			// If the switch is on the opposite side, the robot will just cross auto
+//			autoCommand = new PlaceSwitch(swtch, wall);
+//		} else if (auto.contains("Either")) {
+//			if (fmsMessage.contains("" + wall.toChar())) {
+//				if (auto.contains("Scale")) {
+//					if (scale == wall) {
+//						autoCommand = new PlaceScale(scale, wall);
+//					} else if (swtch == wall) {
+//						autoCommand = new PlaceSwitch(swtch, wall);
+//					}
+//				} else {
+//					if (swtch == wall) {
+//						autoCommand = new PlaceSwitch(swtch, wall);
+//					} else if (scale == wall) {
+//						autoCommand = new PlaceScale(scale, wall);
+//					}
+//				}
+//			}
+//		}
+//
+//		if (autoCommand == null)
+//			autoCommand = new CrossAuto();
+//		autoCommand.start();
+//	}
+//
+//	/**
+//	 * This function is called periodically during autonomous.
+	 //*/
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
@@ -198,9 +199,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autoCommand != null) {
+		// if (autoCommand != null) {
 			autoCommand.cancel();
-		}
 	}
 
 	/**
