@@ -24,12 +24,13 @@ public class DriveTime extends Command{
 	@Override
 	protected void initialize() {
 		this.timer = new Timer();
+		timer.reset();
 	}
 	
 	@Override
 	protected void execute() {
 		Robot.driveTrain.frontLeft.set(ControlMode.PercentOutput, speed);
-		Robot.driveTrain.frontRight.set(ControlMode.PercentOutput, speed);
+		Robot.driveTrain.frontRight.set(ControlMode.PercentOutput, -speed);
 	}
 	
 	@Override
@@ -39,7 +40,12 @@ public class DriveTime extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		return timer.hasPeriodPassed(time);
+	//	return timer.hasPeriodPassed(time);
+		if(timeSinceInitialized() > time) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }
