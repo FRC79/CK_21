@@ -70,15 +70,15 @@ public class Robot extends TimedRobot {
 
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 
-		wallChooser.addObject("Left Wall", Side.LEFT);
+		wallChooser.addDefault("Left Wall", Side.LEFT);
 		wallChooser.addObject("Right Wall", Side.RIGHT);
 		wallChooser.addObject("Middle Wall", Side.MIDDLE);
 
+		autoChooser.addDefault("Cross Line", "CrossAuto");
 		autoChooser.addObject("Place Scale", "Scale");
 		autoChooser.addObject("Place Switch", "Switch");
 		autoChooser.addObject("Either, priority Scale", "EitherScale");
 		autoChooser.addObject("Either, priority Switch", "EitherSwitch");
-		autoChooser.addObject("Cross Line", "CrossAuto");
 
 //		mpChooser.addObject("Cross Auto Line", "CrossAuto");
 //		mpChooser.addObject("Left Wall : Scale", "LeftWallScale");
