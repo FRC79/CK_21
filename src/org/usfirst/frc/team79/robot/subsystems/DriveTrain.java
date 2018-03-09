@@ -52,14 +52,15 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	/**
-	 * Use the gyroscope angle to fix the robot in a straight path
+	 * Use the encoders to fix the robot in a straight path
 	 * @param forward -1 to 1 positive is forward
 	 * @param fixedAngle the angle to fix the robot at
 	 */
 	public void driveStraight(double forward, double fixedAngle) {
-		double difference = fixedAngle - Robot.driveTrain.gyro.getAngle();
-		double value = Math.abs(difference)>0.25 ? difference * 0.1 : 0;
-		Robot.driveTrain.arcadeDrive(forward, value);
+		double difference = getRightInches() - getLeftInches();
+		double gain = 1 + 0.2*difference; //Alter the 0.2 to affect how much the difference in encoder values will matter
+		frontLeft.set(ControlMode.PercentOutput, gain*forward);
+		frontRight.set(ControlMode.PercentOutput, forward/gain);
 	}
 	
 	/**
