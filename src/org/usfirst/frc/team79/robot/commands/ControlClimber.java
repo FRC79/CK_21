@@ -28,6 +28,12 @@ public class ControlClimber extends Command {
 //		{
 //			Robot.climber.rightLeader.set(ControlMode.PercentOutput, value);
 //		}
+
+		//Robot.climber.rightLeader.set(ControlMode.PercentOutput, value);
+		//If nothing is working, just get rid of everything below and simply run above
+		//Try to see if the limit switches are reading correctly. Press one manually and see if it trigger. Pressing one should read true while held and false while released. If not, let me know!
+		System.out.println("Top: " + Robot.climber.topSwitch.get() + ", Bottom: " + Robot.climber.bottomSwitch.get());
+
 		if(value > 0) {
 			if(!Robot.climber.topSwitch.get()) {
 				Robot.climber.rightLeader.set(ControlMode.PercentOutput, value * .4);
