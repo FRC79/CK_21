@@ -51,9 +51,9 @@ public class Robot extends TimedRobot {
 	Command autoCommand;
 	SendableChooser<String> mpChooser = new SendableChooser<>();
 	/**For choosing what are starting configuration is*/
-	SendableChooser<String> wallChooser;
+	SendableChooser<Side> wallChooser = new SendableChooser<>();
 	/**For choosing what autonomous mode to run*/
-	SendableChooser<String> autoChooser;
+	SendableChooser<String> autoChooser = new SendableChooser<>();
 
 
 	/**
@@ -72,26 +72,15 @@ public class Robot extends TimedRobot {
 
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 
-		wallChooser = new SendableChooser<>();
-		wallChooser.setName("Starting Location");
-		wallChooser.addDefault("Left Wall", "L");
-		wallChooser.addObject("Right Wall", "R");
-		wallChooser.addObject("Middle Wall", "M");
+		wallChooser.addObject("Left Wall", Side.LEFT);
+		wallChooser.addObject("Right Wall", Side.RIGHT);
+		wallChooser.addObject("Middle Wall", Side.MIDDLE);
 
-		autoChooser = new SendableChooser<>();
-		autoChooser.setName("Autonomous Mode");
-		autoChooser.addDefault("Cross Line", "CrossAuto");
 		autoChooser.addObject("Place Scale", "Scale");
 		autoChooser.addObject("Place Switch", "Switch");
 		autoChooser.addObject("Either, priority Scale", "EitherScale");
 		autoChooser.addObject("Either, priority Switch", "EitherSwitch");
-
-		SmartDashboard.putData(wallChooser);
-		SmartDashboard.putData(autoChooser);
-		SmartDashboard.putData(driveTrain.gyro);
-		SmartDashboard.putData(gyroPID);
-		System.out.println("~~~Robot initialization complete!~~~");
-		System.out.println("Run Test to generate the motion profile for autonomous.");
+		autoChooser.addObject("Cross Line", "CrossAuto");
 	}
 
 	/**
@@ -123,64 +112,63 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autoCommand = new DriveTime(2,1);
-		autoCommand.start();
+		autoEnc();
 	}
 	
 
 //	 This function is called periodically during autonomous.
 
 	// Using encoders and gyro to get around
-//	private void autoEnc() {
-//		autoCommand = null;
-//		String auto = autoChooser.getSelected();
-//		Side wall = wallChooser.getSelected();
-//		System.out.println("AUTO: User selected auto:" + auto + ", wall: " + wall);
-//		//The message sent from the Field Management System that determines where the switch and scale are
-//		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
-//		System.out.println("AUTO: FMS Message: " + fmsMessage);
-//		Side swtch = Side.fromChar(fmsMessage.charAt(0));
-//		Side scale = Side.fromChar(fmsMessage.charAt(1));
-//		System.out.println("AUTO: Switch: " + swtch.toString() + ". Scale: " + scale.toString());
-//		if(auto.equals("CrossAuto")) {
-//			System.out.println("AUTO: Running CrossAuto");
-//			autoCommand = new CrossAuto();
-//		}
-//		else if(wall==Side.MIDDLE) {
-//			//The middle starting configuration has one auto function.
-//			System.out.println("AUTO: Running PlaceEitherSwitch");
-//			autoCommand = new PlaceEitherSwitch(swtch);
-//		}
-//		else if (auto.equals("Scale")) {
-//			System.out.println("AUTO: Running PlaceScale");
-//			autoCommand = new PlaceScale(scale, wall);
-//		} else if (auto.equals("Switch")) {
-//			// If the switch is on the opposite side, the robot will just cross auto
-//			System.out.println("AUTO: Running PlaceSwitch");
-//			autoCommand = new PlaceSwitch(swtch, wall);
-//		} else if (auto.contains("Either")) {
-//			System.out.println("AUTO: Running Either");
-//				if (auto.contains("Scale")) {
-//					if (scale == wall) {
-//						autoCommand = new PlaceScale(scale, wall);
-//					} else if (swtch == wall) {
-//						autoCommand = new PlaceSwitch(swtch, wall);
-//					}
-//				} else {
-//					if (swtch == wall) {
-//						autoCommand = new PlaceSwitch(swtch, wall);
-//					} else if (scale == wall) {
-//						autoCommand = new PlaceScale(scale, wall);
-//					}
-//				}
-//		}
-//
-//		if (autoCommand == null) {
-//			System.out.println("AUTO: Running CrossAuto (by null case)");
-//			autoCommand = new CrossAuto();
-//		}
-//		autoCommand.start();
-//	}
+	private void autoEnc() {
+		autoCommand = null;
+		String auto = autoChooser.getSelected();
+		Side wall = wallChooser.getSelected();
+		System.out.println("AUTO: User selected auto:" + auto + ", wall: " + wall);
+		//The message sent from the Field Management System that determines where the switch and scale are
+		String fmsMessage = DriverStation.getInstance().getGameSpecificMessage().substring(0, 2);
+		System.out.println("AUTO: FMS Message: " + fmsMessage);
+		Side swtch = Side.fromChar(fmsMessage.charAt(0));
+		Side scale = Side.fromChar(fmsMessage.charAt(1));
+		System.out.println("AUTO: Switch: " + swtch.toString() + ". Scale: " + scale.toString());
+		if(auto.equals("CrossAuto")) {
+			System.out.println("AUTO: Running CrossAuto");
+			autoCommand = new CrossAuto();
+		}
+		else if(wall==Side.MIDDLE) {
+			//The middle starting configuration has one auto function.
+			System.out.println("AUTO: Running PlaceEitherSwitch");
+			autoCommand = new PlaceEitherSwitch(swtch);
+		}
+		else if (auto.equals("Scale")) {
+			System.out.println("AUTO: Running PlaceScale");
+			autoCommand = new PlaceScale(scale, wall);
+		} else if (auto.equals("Switch")) {
+			// If the switch is on the opposite side, the robot will just cross auto
+			System.out.println("AUTO: Running PlaceSwitch");
+			autoCommand = new PlaceSwitch(swtch, wall);
+		} else if (auto.contains("Either")) {
+			System.out.println("AUTO: Running Either");
+				if (auto.contains("Scale")) {
+					if (scale == wall) {
+						autoCommand = new PlaceScale(scale, wall);
+					} else if (swtch == wall) {
+						autoCommand = new PlaceSwitch(swtch, wall);
+					}
+				} else {
+					if (swtch == wall) {
+						autoCommand = new PlaceSwitch(swtch, wall);
+					} else if (scale == wall) {
+						autoCommand = new PlaceScale(scale, wall);
+					}
+				}
+		}
+
+		if (autoCommand == null) {
+			System.out.println("AUTO: Running CrossAuto (by null case)");
+			autoCommand = new CrossAuto();
+		}
+		autoCommand.start();
+	}
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -202,9 +190,10 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic() { //-2933 -3941
 		SmartDashboard.putNumber("Right Speed", driveTrain.getRightVel());
 		SmartDashboard.putNumber("Left Speed", driveTrain.getLeftVel());
+
 		Scheduler.getInstance().run();
 	}
 

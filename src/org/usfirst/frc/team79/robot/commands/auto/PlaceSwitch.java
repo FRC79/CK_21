@@ -17,7 +17,7 @@ public class PlaceSwitch extends CommandGroup {
 			if(swtch==Side.LEFT) {
 				//To the left switch
 				this.addSequential(new DriveDistance(145.208));
-				this.addSequential(new RotateDegrees(90));
+				this.addSequential(new RotateEncoders(90));
 				this.addSequential(new DriveDistance(29.895));
 			}else {
 				//Just cross the auto line
@@ -28,7 +28,7 @@ public class PlaceSwitch extends CommandGroup {
 			if(swtch==Side.RIGHT) {
 				//To the right switch
 				this.addSequential(new DriveDistance(145.208));
-				this.addSequential(new RotateDegrees(-90));
+				this.addSequential(new RotateEncoders(-90));
 				this.addSequential(new DriveDistance(29.895));
 			}else {
 				//Just cross the auto line

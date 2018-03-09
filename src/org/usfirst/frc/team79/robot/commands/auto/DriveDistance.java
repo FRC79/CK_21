@@ -12,6 +12,7 @@ public class DriveDistance extends Command{
 	/**
 	 * Drive straight for a specified distance
 	 * @param distance in inches
+	 * @param  
 	 */
 	public DriveDistance(double distance) {
 		this.distance = distance;
@@ -20,12 +21,11 @@ public class DriveDistance extends Command{
 	@Override
 	protected void initialize() {
 		Robot.driveTrain.resetEncoders();
-		Robot.driveTrain.gyro.reset();
 	}
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.driveStraight(0.4, 0);
+		Robot.driveTrain.driveStraight(0.5, 0);
 	}
 	
 	@Override

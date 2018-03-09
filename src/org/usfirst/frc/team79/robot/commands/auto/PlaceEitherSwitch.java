@@ -15,13 +15,13 @@ public class PlaceEitherSwitch extends CommandGroup{
 	public PlaceEitherSwitch(Side swtch) {
 		this.addSequential(new DriveDistance(47.477));
 		if(swtch==Side.LEFT) {
-			this.addSequential(new RotateDegrees(-90));
+			this.addSequential(new RotateEncoders(-90));
 			this.addSequential(new DriveDistance(39.52));
-			this.addSequential(new RotateDegrees(90));
+			this.addSequential(new RotateEncoders(90));
 		}else {
-			this.addSequential(new RotateDegrees(90));
+			this.addSequential(new RotateEncoders(90));
 			this.addSequential(new DriveDistance(22.847));
-			this.addSequential(new RotateDegrees(-90));
+			this.addSequential(new RotateEncoders(-90));
 		}
 		this.addSequential(new DriveDistance(47.2));
 		this.addSequential(new LiftElevator(2));
